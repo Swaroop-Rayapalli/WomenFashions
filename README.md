@@ -43,13 +43,6 @@ Women Fashions is a premier boutique specializing in:
 - CSS3 (Custom design system)
 - Vanilla JavaScript
 - Google Fonts (Playfair Display, Poppins)
-
-## Deployment
-
-This website is ready for deployment on:
-- Netlify
-- Vercel
-- GitHub Pages
 - Traditional hosting
 
 ---
