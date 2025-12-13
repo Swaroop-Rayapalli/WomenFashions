@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Browse our exclusive collections of designer blouses, sarees, kids wear, and fabrics. Shop premium Indian ethnic wear at Women Fashion.">
+    <title>Collections -Women Fashion | Designer Blouses, Sarees & More</title>
+    <link rel="icon" type="image/png"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👗</text></svg>">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .category-nav {
+            position: sticky;
+            top: 70px;
+            background: var(--color-white);
+            padding: var(--space-4) 0;
+            box-shadow: var(--shadow-sm);
+            z-index: var(--z-dropdown);
+            margin-bottom: var(--space-8);
+        }
+
+        .category-nav-list {
+            display: flex;
+            gap: var(--space-4);
+            overflow-x: auto;
+            padding: var(--space-2) var(--space-6);
+        }
+
+        .category-nav-link {
+            padding: var(--space-3) var(--space-6);
+            background: var(--color-beige);
+            border-radius: var(--radius-full);
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all var(--transition-base);
+        }
+
+        .category-nav-link:hover,
+        .category-nav-link.active {
+            background: var(--color-maroon);
+            color: var(--color-white);
+        }
+
+        .product-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--color-gold);
+            color: var(--color-white);
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-md);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .product-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: var(--space-6);
+            transform: translateY(100%);
+            transition: transform var(--transition-base);
+        }
+
+        .product-card:hover .product-overlay {
+            transform: translateY(0);
+        }
+
+        .size-selector {
+            display: flex;
+            gap: var(--space-2);
+            margin: var(--space-4) 0;
+        }
+
+        .size-option {
+            padding: var(--space-2) var(--space-4);
+            border: 2px solid var(--color-gray-300);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .size-option:hover,
+        .size-option.selected {
+            border-color: var(--color-maroon);
+            background: var(--color-maroon);
+            color: var(--color-white);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <span>✨</span> Women <span>Fashions</span>
+            </a>
+
+            <ul class="navbar-menu">
+                <li><a href="index.html" class="navbar-link">Home</a></li>
+                <li><a href="about.html" class="navbar-link">About</a></li>
+                <li><a href="collections.html" class="navbar-link">Collections</a></li>
+                <li><a href="services.html" class="navbar-link">Services</a></li>
+                <li><a href="gallery.html" class="navbar-link">Gallery</a></li>
+                <li><a href="testimonials.html" class="navbar-link">Testimonials</a></li>
+                <li><a href="offers.html" class="navbar-link">Offers</a></li>
+                <li><a href="contact.html" class="navbar-link">Contact</a></li>
+            </ul>
+
+            <div class="navbar-actions">
+                <a href="cart.html" class="btn btn-sm btn-outline" style="position: relative;">
+                    🛒 Cart
+                    <span class="cart-count"
+                        style="position: absolute; top: -8px; right: -8px; background: var(--color-maroon); color: white; border-radius: 50%; width: 20px; height: 20px; display: none; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;">0</span>
+                </a>
+                <button class="navbar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="hero" style="min-height: 40vh; margin-top: 70px;">
+        <div class="hero-content">
+            <h1 class="hero-title">Our Collections</h1>
+            <p class="hero-subtitle">Exquisite Designs for Every Occasion</p>
+        </div>
+    </section>
+
+    <!-- Category Navigation -->
+    <div class="category-nav">
+        <div class="category-nav-list">
+            <a href="#blouses" class="category-nav-link">Designer Blouses</a>
+            <a href="#sarees" class="category-nav-link">Sarees</a>
+            <a href="#kids" class="category-nav-link">Kids Wear</a>
+            <a href="#lehengas" class="category-nav-link">Lehengas</a>
+            <a href="#fabrics" class="category-nav-link">Fabrics</a>
+        </div>
+    </div>
+
+    <!-- Designer Blouses Section -->
+    <section id="blouses" class="section bg-white">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Designer Blouses</h2>
+                <p class="section-subtitle">Perfectly crafted blouses with intricate designs</p>
+            </div>
+
+            <div class="grid grid-4">
+                <!-- Maggam Work Blouse -->
+                <div class="card product-card">
+                    <span class="product-badge">Bestseller</span>
+                    <img src="images/designer_blouses_collection_1765197297759.png" alt="Maggam Work Blouse"
+                        class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Maggam Work Blouse</h3>
+                        <p class="card-text">Intricate hand embroidery with beads and sequins</p>
+                        <p
+                            style="font-size: var(--text-2xl); color: var(--color-gold); font-weight: 700; margin: var(--space-3) 0;">
+                            ₹2,500</p>
+                        <div class="size-selector">
+                            <div class="size-option" onclick="this.classList.toggle('selected')">S</div>
+                            <div class="size-option" onclick="this.classList.toggle('selected')">M</div>
+                            <div class="size-option" onclick="this.classList.toggle('selected')">L</div>
+                            <div class="size-option" onclick="this.classList.toggle('selected')">XL</div>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;"
+                            onclick="addToCart({id: 'blouse-1', name: 'Maggam Work Blouse', price: 2500, image: 'images/designer_blouses_collection_1765197297759.png', size: 'M'})">Add
+                            to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Bridal Blouse -->
+                <div class="card product-card">
+                    <span class="product-badge">Premium</span>
+                    <img src="images/embroidery_work_closeup_1765197341457.png" alt="Bridal Blouse" class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Bridal Blouse</h3>
+                        <p class="card-text">Heavy maggam work for wedding occasions</p>
+                        <p
+                            style="font-size: var(--text-2xl); color: var(--color-gold); font-weight: 700; margin: var(--space-3) 0;">
+                            ₹4,500</p>
+                        <div class="size-selector">
+                            <div class="size-option" onclick="this.classList.toggle('selected')">S</div>
+                            <div class="size-option" onclick="this.classList.toggle('selected')">M</div>
+                            <div class="size-option" onclick="this.classList.toggle('selected')">L</div>
+                            <div class="size-option" onclick="this.classList.toggle('selected')">XL</div>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;"
+                            onclick="addToCart({id: 'blouse-2', name: 'Bridal Blouse', price: 4500, image: 'images/embroidery_work_closeup_1765197341457.png', size: 'M'})">Add
+                            to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Embroidery Blouse -->
+                <div class="card product-card">
+                    <img src="images/designer_blouses_collection_1765197297759.png" alt="Embroidery Blouse"
+                        class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Embroidery Blouse</h3>
+                        <p class="card-text">Computer embroidery with modern patterns</p>
+                        <p
+                            style="font-size: var(--text-2xl); color: var(--color-gold); font-weight: 700; margin: var(--space-3) 0;">
+                            ₹1,800</p>
+                        <div class="size-selector">
+                            <div class="size-option" onclick="this.classList.toggle('selected')">S</div>
+                            <div class="size-option" onclick="this.classList.toggle('selected')">M</div>
+                            <div class="size-option" onclick="this.classList.toggle('selected')">L</div>
+                            <div class="size-option" onclick="this.classList.toggle('selected')">XL</div>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;"
+                            onclick="addToCart({id: 'blouse-3', name: 'Embroidery Blouse', price: 1800, image: 'images/designer_blouses_collection_1765197297759.png', size: 'M'})">Add
+                            to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Designer Blouse -->
+                <div class="card product-card">
+                    <span class="product-badge">New</span>
+                    <img src="images/designer_blouses_collection_1765197297759.png" alt="Designer Blouse"
+                        class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Designer Blouse</h3>
+                        <p class="card-text">Contemporary design with traditional touch</p>
+                        <p
+                            style="font-size: var(--text-2xl); color: var(--color-gold); font-weight: 700; margin: var(--space-3) 0;">
+                            ₹2,200</p>
+                        <div class="size-selector">
+                            <div class="size-option" onclick="this.classList.toggle('selected')">S</div>
+                            <div class="size-option" onclick="this.classList.toggle('selected')">M</div>
+                            <div class="size-option" onclick="this.classList.toggle('selected')">L</div>
+                            <div class="size-option" onclick="this.classList.toggle('selected')">XL</div>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;"
+                            onclick="addToCart({id: 'blouse-4', name: 'Designer Blouse', price: 2200, image: 'images/designer_blouses_collection_1765197297759.png', size: 'M'})">Add
+                            to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <p style="color: var(--color-peacock); font-size: var(--text-lg);">
+                    💡 <strong>Custom Stitching Available</strong> - Bring your design or choose from our catalog
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sarees Section -->
+    <section id="sarees" class="section bg-beige">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Designer Sarees</h2>
+                <p class="section-subtitle">Elegant sarees with professional fall & pico work</p>
+            </div>
+
+            <div class="grid grid-3">
+                <div class="card product-card">
+                    <span class="product-badge">Trending</span>
+                    <img src="images/fabric_collection_display_1765197321006.png" alt="Pattu Saree" class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Pattu Silk Saree</h3>
+                        <p class="card-text">Traditional silk saree with rich border</p>
+                        <p
+                            style="font-size: var(--text-2xl); color: var(--color-gold); font-weight: 700; margin: var(--space-3) 0;">
+                            ₹8,500</p>
+                        <button class="btn btn-primary" style="width: 100%;"
+                            onclick="addToCart({id: 'saree-1', name: 'Pattu Silk Saree', price: 8500, image: 'images/fabric_collection_display_1765197321006.png', size: 'Standard'})">Add
+                            to Cart</button>
+                    </div>
+                </div>
+
+                <div class="card product-card">
+                    <img src="images/fabric_collection_display_1765197321006.png" alt="Designer Saree" class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Designer Work Saree</h3>
+                        <p class="card-text">Contemporary design with embroidery</p>
+                        <p
+                            style="font-size: var(--text-2xl); color: var(--color-gold); font-weight: 700; margin: var(--space-3) 0;">
+                            ₹6,200</p>
+                        <button class="btn btn-primary" style="width: 100%;"
+                            onclick="addToCart({id: 'saree-2', name: 'Designer Work Saree', price: 6200, image: 'images/fabric_collection_display_1765197321006.png', size: 'Standard'})">Add
+                            to Cart</button>
+                    </div>
+                </div>
+
+                <div class="card product-card">
+                    <span class="product-badge">New</span>
+                    <img src="images/fabric_collection_display_1765197321006.png" alt="Soft Silk Saree"
+                        class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Soft Silk Saree</h3>
+                        <p class="card-text">Comfortable soft silk for daily wear</p>
+                        <p
+                            style="font-size: var(--text-2xl); color: var(--color-gold); font-weight: 700; margin: var(--space-3) 0;">
+                            ₹4,800</p>
+                        <button class="btn btn-primary" style="width: 100%;"
+                            onclick="addToCart({id: 'saree-3', name: 'Soft Silk Saree', price: 4800, image: 'images/fabric_collection_display_1765197321006.png', size: 'Standard'})">Add
+                            to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kids Wear Section -->
+    <section id="kids" class="section bg-white">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Kids Wear</h2>
+                <p class="section-subtitle">Adorable ethnic wear for your little ones</p>
+            </div>
+
+            <div class="grid grid-4">
+                <div class="card product-card">
+                    <img src="images/designer_blouses_collection_1765197297759.png" alt="Kids Lehenga" class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Kids Lehenga</h3>
+                        <p class="card-text">Beautiful lehenga for special occasions</p>
+                        <p
+                            style="font-size: var(--text-2xl); color: var(--color-gold); font-weight: 700; margin: var(--space-3) 0;">
+                            ₹2,800</p>
+                        <button class="btn btn-primary" style="width: 100%;"
+                            onclick="addToCart({id: 'kids-1', name: 'Kids Lehenga', price: 2800, image: 'images/designer_blouses_collection_1765197297759.png', size: '2-3Y'})">Add
+                            to Cart</button>
+                    </div>
+                </div>
+
+                <div class="card product-card">
+                    <img src="images/designer_blouses_collection_1765197297759.png" alt="Kids Frock" class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Ethnic Frock</h3>
+                        <p class="card-text">Comfortable and stylish ethnic frock</p>
+                        <p
+                            style="font-size: var(--text-2xl); color: var(--color-gold); font-weight: 700; margin: var(--space-3) 0;">
+                            ₹1,500</p>
+                        <button class="btn btn-primary" style="width: 100%;"
+                            onclick="addToCart({id: 'kids-2', name: 'Ethnic Frock', price: 1500, image: 'images/designer_blouses_collection_1765197297759.png', size: '2-3Y'})">Add
+                            to Cart</button>
+                    </div>
+                </div>
+
+                <div class="card product-card">
+                    <img src="images/designer_blouses_collection_1765197297759.png" alt="Kids Salwar" class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Kids Salwar Set</h3>
+                        <p class="card-text">Traditional salwar kameez for girls</p>
+                        <p
+                            style="font-size: var(--text-2xl); color: var(--color-gold); font-weight: 700; margin: var(--space-3) 0;">
+                            ₹1,800</p>
+                        <button class="btn btn-primary" style="width: 100%;"
+                            onclick="addToCart({id: 'kids-3', name: 'Kids Salwar Set', price: 1800, image: 'images/designer_blouses_collection_1765197297759.png', size: '2-3Y'})">Add
+                            to Cart</button>
+                    </div>
+                </div>
+
+                <div class="card product-card">
+                    <span class="product-badge">Bestseller</span>
+                    <img src="images/designer_blouses_collection_1765197297759.png" alt="Kids Pattu Pavadai"
+                        class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Pattu Pavadai</h3>
+                        <p class="card-text">Traditional silk pavadai for festivals</p>
+                        <p
+                            style="font-size: var(--text-2xl); color: var(--color-gold); font-weight: 700; margin: var(--space-3) 0;">
+                            ₹3,200</p>
+                        <button class="btn btn-primary" style="width: 100%;"
+                            onclick="addToCart({id: 'kids-4', name: 'Pattu Pavadai', price: 3200, image: 'images/designer_blouses_collection_1765197297759.png', size: '2-3Y'})">Add
+                            to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fabrics Section -->
+    <section id="fabrics" class="section bg-beige">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Premium Fabrics</h2>
+                <p class="section-subtitle">Wide variety of high-quality materials</p>
+            </div>
+
+            <div class="grid grid-3">
+                <div class="card">
+                    <img src="images/fabric_collection_display_1765197321006.png" alt="Cotton Silk" class="card-img">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">Cotton Silk</h3>
+                        <p class="card-text">Soft and comfortable cotton silk fabrics in various colors</p>
+                        <p style="font-size: var(--text-xl); color: var(--color-peacock); font-weight: 600;">Starting
+                            from ₹400/meter</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="images/fabric_collection_display_1765197321006.png" alt="Banaras" class="card-img">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">Banaras Silk</h3>
+                        <p class="card-text">Premium Banaras silk with rich texture and shine</p>
+                        <p style="font-size: var(--text-xl); color: var(--color-peacock); font-weight: 600;">Starting
+                            from ₹800/meter</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="images/fabric_collection_display_1765197321006.png" alt="2x2 Rubia" class="card-img">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">2x2 Rubia</h3>
+                        <p class="card-text">Elegant rubia fabric perfect for blouses</p>
+                        <p style="font-size: var(--text-xl); color: var(--color-peacock); font-weight: 600;">Starting
+                            from ₹350/meter</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <a href="contact.html" class="btn btn-gold btn-lg">Visit Store to See Full Collection</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Stitching CTA -->
+    <section class="section"
+        style="background: linear-gradient(135deg, var(--color-maroon), var(--color-maroon-dark)); color: white;">
+        <div class="container text-center">
+            <h2 style="color: var(--color-gold); font-size: var(--text-4xl); margin-bottom: var(--space-4);">Need Custom
+                Stitching?</h2>
+            <p style="font-size: var(--text-xl); margin-bottom: var(--space-6); color: white;">
+                Bring your own design or choose from our catalog. We offer personalized measurements and expert
+                tailoring.
+            </p>
+            <div class="flex-center gap-4" style="flex-wrap: wrap;">
+                <button onclick="bookAppointment()" class="btn btn-gold btn-lg">Book Consultation</button>
+                <a href="services.html" class="btn btn-outline btn-lg" style="border-color: white; color: white;">View
+                    Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Women Fashion</h3>
+                    <p>Premium Designing & Stitching Boutique</p>
+                    <p>Serving Visakhapatnam since 2011</p>
+                    <p style="margin-top: var(--space-4);">⭐⭐⭐⭐⭐ 4.5 Rating</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="about.html">About Us</a>
+                    <a href="collections.html">Collections</a>
+                    <a href="services.html">Services</a>
+                    <a href="gallery.html">Gallery</a>
+                    <a href="offers.html">Special Offers</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Our Services</h3>
+                    <a href="services.html#maggam">Maggam Work</a>
+                    <a href="services.html#blouses">Designer Blouses</a>
+                    <a href="services.html#saree">Saree Fall & Pico</a>
+                    <a href="services.html#embroidery">Embroidery</a>
+                    <a href="services.html#custom">Custom Stitching</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>📞 9030600126</p>
+                    <p>📍 MG Road, near City Center</p>
+                    <p>Anand Nagar, Visakhapatnam</p>
+                    <p>📍 Uppada Road, Near INS Kalinga, Uppada, Visakhapatnam, Andhra Pradesh 531163</p>
+                    <p>🕒 10:00 AM - 8:00 PM</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Women Fashion. All rights reserved to Swaroop Rayapalli. | Designed with ❤️ for Premium
+                    Fashion</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <div class="whatsapp-float" onclick="openWhatsApp()">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-5.247 1.408 1.417-5.267-0.321-0.532c-1.321-2.189-2.019-4.708-2.019-7.247 0-7.384 6.007-13.391 13.391-13.391s13.391 6.007 13.391 13.391c0 7.384-6.007 13.391-13.391 13.391zM21.305 18.421c-0.259-0.13-1.533-0.757-1.771-0.843s-0.41-0.13-0.583 0.13c-0.173 0.259-0.67 0.843-0.822 1.016s-0.303 0.195-0.562 0.065c-0.259-0.13-1.095-0.403-2.086-1.287-0.771-0.689-1.292-1.539-1.444-1.798s-0.016-0.399 0.114-0.528c0.117-0.116 0.259-0.303 0.389-0.454s0.173-0.259 0.259-0.432c0.087-0.173 0.043-0.324-0.022-0.454s-0.583-1.405-0.799-1.924c-0.211-0.505-0.425-0.437-0.583-0.445-0.151-0.008-0.324-0.010-0.497-0.010s-0.454 0.065-0.692 0.324c-0.238 0.259-0.908 0.887-0.908 2.162s0.929 2.508 1.059 2.681c0.13 0.173 1.832 2.797 4.437 3.923 0.62 0.27 1.104 0.432 1.481 0.552 0.622 0.198 1.188 0.17 1.635 0.103 0.499-0.075 1.533-0.627 1.749-1.233s0.216-1.124 0.151-1.233c-0.065-0.108-0.238-0.173-0.497-0.303z" />
+        </svg>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

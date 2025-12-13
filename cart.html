@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View your shopping cart at Women Fashion. Review items and proceed to checkout.">
+    <title>Shopping Cart - Women Fashion</title>
+    <link rel="icon" type="image/png"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👗</text></svg>">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .cart-item {
+            display: grid;
+            grid-template-columns: 100px 1fr auto auto;
+            gap: var(--space-4);
+            align-items: center;
+            padding: var(--space-6);
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-4);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .cart-item-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+        }
+
+        .cart-item-details h4 {
+            color: var(--color-maroon);
+            margin-bottom: var(--space-2);
+        }
+
+        .cart-item-price {
+            font-size: var(--text-xl);
+            color: var(--color-gold);
+            font-weight: 700;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .cart-item-quantity button {
+            width: 35px;
+            height: 35px;
+            border: 2px solid var(--color-maroon);
+            border-radius: var(--radius-md);
+            background: var(--color-white);
+            color: var(--color-maroon);
+            font-size: var(--text-xl);
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .cart-item-quantity button:hover {
+            background: var(--color-maroon);
+            color: var(--color-white);
+        }
+
+        .cart-item-quantity span {
+            min-width: 40px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .cart-item-remove {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: var(--color-error);
+            color: var(--color-white);
+            font-size: var(--text-2xl);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cart-item-remove:hover {
+            background: #B91C1C;
+        }
+
+        .cart-summary {
+            background: var(--color-beige);
+            padding: var(--space-8);
+            border-radius: var(--radius-xl);
+            position: sticky;
+            top: 100px;
+        }
+
+        @media (max-width: 768px) {
+            .cart-item {
+                grid-template-columns: 80px 1fr;
+                gap: var(--space-3);
+            }
+
+            .cart-item-quantity {
+                grid-column: 1 / -1;
+                justify-content: center;
+            }
+
+            .cart-item-remove {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <span>✨</span> Women <span>Fashions</span>
+            </a>
+
+            <ul class="navbar-menu">
+                <li><a href="index.html" class="navbar-link">Home</a></li>
+                <li><a href="about.html" class="navbar-link">About</a></li>
+                <li><a href="collections.html" class="navbar-link">Collections</a></li>
+                <li><a href="services.html" class="navbar-link">Services</a></li>
+                <li><a href="gallery.html" class="navbar-link">Gallery</a></li>
+                <li><a href="testimonials.html" class="navbar-link">Testimonials</a></li>
+                <li><a href="offers.html" class="navbar-link">Offers</a></li>
+                <li><a href="contact.html" class="navbar-link">Contact</a></li>
+            </ul>
+
+            <div class="navbar-actions">
+                <a href="cart.html" class="btn btn-sm btn-outline" style="position: relative;">
+                    🛒 Cart
+                    <span class="cart-count"
+                        style="position: absolute; top: -8px; right: -8px; background: var(--color-maroon); color: white; border-radius: 50%; width: 20px; height: 20px; display: none; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;">0</span>
+                </a>
+                <button class="navbar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="hero" style="min-height: 30vh; margin-top: 70px;">
+        <div class="hero-content">
+            <h1 class="hero-title">Shopping Cart</h1>
+            <p class="hero-subtitle">Review your selected items</p>
+        </div>
+    </section>
+
+    <!-- Cart Content -->
+    <section class="section bg-white">
+        <div class="container">
+            <div class="grid grid-2" style="align-items: start; gap: var(--space-12);">
+                <!-- Cart Items -->
+                <div>
+                    <h2 style="color: var(--color-maroon); margin-bottom: var(--space-6);">Your Items</h2>
+                    <div id="cart-items">
+                        <!-- Cart items will be dynamically inserted here by JavaScript -->
+                    </div>
+
+                    <div style="margin-top: var(--space-8);">
+                        <a href="collections.html" class="btn btn-outline">← Continue Shopping</a>
+                    </div>
+                </div>
+
+                <!-- Cart Summary -->
+                <div>
+                    <div class="cart-summary">
+                        <h2 style="color: var(--color-maroon); margin-bottom: var(--space-6);">Order Summary</h2>
+
+                        <div
+                            style="margin-bottom: var(--space-4); padding-bottom: var(--space-4); border-bottom: 2px solid var(--color-gray-300);">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-3);">
+                                <span style="color: var(--color-gray-700);">Subtotal:</span>
+                                <span id="cart-total" style="font-weight: 600; color: var(--color-gray-800);">₹0</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-3);">
+                                <span style="color: var(--color-gray-700);">Shipping:</span>
+                                <span style="font-weight: 600; color: var(--color-gray-800);">Free</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="color: var(--color-gray-700);">Tax (GST):</span>
+                                <span style="font-weight: 600; color: var(--color-gray-800);">Included</span>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-6);">
+                            <span
+                                style="font-size: var(--text-xl); font-weight: 700; color: var(--color-maroon);">Total:</span>
+                            <span id="cart-total-final"
+                                style="font-size: var(--text-2xl); font-weight: 700; color: var(--color-gold);">₹0</span>
+                        </div>
+
+                        <button onclick="proceedToCheckout()" class="btn btn-primary btn-lg"
+                            style="width: 100%; margin-bottom: var(--space-4);">
+                            Proceed to Checkout
+                        </button>
+
+                        <button onclick="bookAppointment()" class="btn btn-gold" style="width: 100%;">
+                            📅 Book Appointment to Order
+                        </button>
+
+                        <div
+                            style="margin-top: var(--space-6); padding: var(--space-4); background: rgba(15, 76, 117, 0.1); border-radius: var(--radius-md);">
+                            <p
+                                style="font-size: var(--text-sm); color: var(--color-peacock); text-align: center; margin: 0;">
+                                💡 <strong>Note:</strong> For custom measurements and personalized service, we recommend
+                                booking an appointment or visiting our store.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Shop With Us -->
+    <section class="section bg-beige">
+        <div class="container">
+            <h2 class="section-title">Why Shop With Us?</h2>
+            <div class="grid grid-4" style="margin-top: var(--space-8);">
+                <div class="text-center">
+                    <div style="font-size: 3rem; margin-bottom: var(--space-3);">✓</div>
+                    <h3 style="color: var(--color-maroon); margin-bottom: var(--space-2);">Quality Assured</h3>
+                    <p style="color: var(--color-gray-600);">Premium materials and expert craftsmanship</p>
+                </div>
+
+                <div class="text-center">
+                    <div style="font-size: 3rem; margin-bottom: var(--space-3);">🚚</div>
+                    <h3 style="color: var(--color-maroon); margin-bottom: var(--space-2);">Free Shipping</h3>
+                    <p style="color: var(--color-gray-600);">On all orders within Visakhapatnam</p>
+                </div>
+
+                <div class="text-center">
+                    <div style="font-size: 3rem; margin-bottom: var(--space-3);">🔄</div>
+                    <h3 style="color: var(--color-maroon); margin-bottom: var(--space-2);">Easy Returns</h3>
+                    <p style="color: var(--color-gray-600);">7-day return policy on ready-made items</p>
+                </div>
+
+                <div class="text-center">
+                    <div style="font-size: 3rem; margin-bottom: var(--space-3);">💬</div>
+                    <h3 style="color: var(--color-maroon); margin-bottom: var(--space-2);">24/7 Support</h3>
+                    <p style="color: var(--color-gray-600);">Contact us anytime via WhatsApp</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Women Fashion</h3>
+                    <p>Premium Designing & Stitching Boutique</p>
+                    <p>Serving Visakhapatnam since 2011</p>
+                    <p style="margin-top: var(--space-4);">⭐⭐⭐⭐⭐ 4.5 Rating</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="about.html">About Us</a>
+                    <a href="collections.html">Collections</a>
+                    <a href="services.html">Services</a>
+                    <a href="gallery.html">Gallery</a>
+                    <a href="offers.html">Special Offers</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Our Services</h3>
+                    <a href="services.html#maggam">Maggam Work</a>
+                    <a href="services.html#blouses">Designer Blouses</a>
+                    <a href="services.html#saree">Saree Fall & Pico</a>
+                    <a href="services.html#embroidery">Embroidery</a>
+                    <a href="services.html#custom">Custom Stitching</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>📞 9030600126</p>
+                    <p>📍 MG Road, near City Center</p>
+                    <p>Anand Nagar, Visakhapatnam</p>
+                    <p>📍 Uppada Road, Near INS Kalinga, Uppada, Visakhapatnam, Andhra Pradesh 531163</p>
+                    <p>🕒 10:00 AM - 8:00 PM</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Women Fashion. All rights reserved to Swaroop Rayapalli. | Designed with ❤️ for Premium
+                    Fashion</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <div class="whatsapp-float" onclick="openWhatsApp()">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-5.247 1.408 1.417-5.267-0.321-0.532c-1.321-2.189-2.019-4.708-2.019-7.247 0-7.384 6.007-13.391 13.391-13.391s13.391 6.007 13.391 13.391c0 7.384-6.007 13.391-13.391 13.391zM21.305 18.421c-0.259-0.13-1.533-0.757-1.771-0.843s-0.41-0.13-0.583 0.13c-0.173 0.259-0.67 0.843-0.822 1.016s-0.303 0.195-0.562 0.065c-0.259-0.13-1.095-0.403-2.086-1.287-0.771-0.689-1.292-1.539-1.444-1.798s-0.016-0.399 0.114-0.528c0.117-0.116 0.259-0.303 0.389-0.454s0.173-0.259 0.259-0.432c0.087-0.173 0.043-0.324-0.022-0.454s-0.583-1.405-0.799-1.924c-0.211-0.505-0.425-0.437-0.583-0.445-0.151-0.008-0.324-0.010-0.497-0.010s-0.454 0.065-0.692 0.324c-0.238 0.259-0.908 0.887-0.908 2.162s0.929 2.508 1.059 2.681c0.13 0.173 1.832 2.797 4.437 3.923 0.62 0.27 1.104 0.432 1.481 0.552 0.622 0.198 1.188 0.17 1.635 0.103 0.499-0.075 1.533-0.627 1.749-1.233s0.216-1.124 0.151-1.233c-0.065-0.108-0.238-0.173-0.497-0.303z" />
+        </svg>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        function proceedToCheckout() {
+            const cartItems = JSON.parse(localStorage.getItem('womenCart')) || [];
+            if (cartItems.length === 0) {
+                alert('Your cart is empty. Please add items before checkout.');
+                return;
+            }
+
+            // Create order summary message
+            let message = 'Hello! I would like to place an order from Women Fashion:\n\n';
+            let total = 0;
+
+            cartItems.forEach((item, index) => {
+                message += `${index + 1}. ${item.name}\n`;
+                message += `   Size: ${item.size}\n`;
+                message += `   Quantity: ${item.quantity}\n`;
+                message += `   Price: ₹${item.price * item.quantity}\n\n`;
+                total += item.price * item.quantity;
+            });
+
+            message += `Total Amount: ₹${total.toLocaleString('en-IN')}\n\n`;
+            message += 'Please confirm my order and let me know the next steps.';
+
+            const phone = '919247268246';
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
+        }
+    </script>
+</body>
+
+</html>
