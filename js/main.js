@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // WHATSAPP BUTTON
 // ===================================
 function openWhatsApp() {
-    const phoneNumber = '919030600126'; // Format: country code + number (no spaces or special chars)
+    const phoneNumber = '919030600126'; 
     const message = encodeURIComponent('Hello! I would like to inquire about your services at Women Fashion.');
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
 }
@@ -207,7 +207,7 @@ function validateForm(formId) {
 // ===================================
 // SHOPPING CART FUNCTIONALITY
 // ===================================
-let cart = JSON.parse(localStorage.getItem('vasaviCart')) || [];
+let cart = JSON.parse(localStorage.getItem('womenCart')) || [];
 
 function updateCartCount() {
     const cartCount = document.querySelector('.cart-count');
@@ -234,23 +234,29 @@ function addToCart(product) {
         });
     }
 
-    localStorage.setItem('vasaviCart', JSON.stringify(cart));
+    localStorage.setItem('womenCart', JSON.stringify(cart));
     updateCartCount();
     showNotification('Item added to cart!');
 }
 
 function removeFromCart(productId, size) {
     cart = cart.filter(item => !(item.id === productId && item.size === size));
-    localStorage.setItem('vasaviCart', JSON.stringify(cart));
+    localStorage.setItem('womenCart', JSON.stringify(cart));
     updateCartCount();
     renderCart();
 }
 
 function updateQuantity(productId, size, newQuantity) {
+    if (newQuantity <= 0) {
+        // Remove item if quantity is 0 or less
+        removeFromCart(productId, size);
+        return;
+    }
+
     const item = cart.find(item => item.id === productId && item.size === size);
     if (item) {
-        item.quantity = Math.max(1, newQuantity);
-        localStorage.setItem('vasaviCart', JSON.stringify(cart));
+        item.quantity = newQuantity;
+        localStorage.setItem('womenCart', JSON.stringify(cart));
         updateCartCount();
         renderCart();
     }
@@ -259,12 +265,14 @@ function updateQuantity(productId, size, newQuantity) {
 function renderCart() {
     const cartContainer = document.getElementById('cart-items');
     const cartTotal = document.getElementById('cart-total');
+    const cartTotalFinal = document.getElementById('cart-total-final');
 
     if (!cartContainer) return;
 
     if (cart.length === 0) {
-        cartContainer.innerHTML = '<p class="text-center">Your cart is empty.</p>';
+        cartContainer.innerHTML = '<p class="text-center" style="color: var(--color-gray-600); padding: var(--space-8);">Your cart is empty.</p>';
         if (cartTotal) cartTotal.textContent = '₹0';
+        if (cartTotalFinal) cartTotalFinal.textContent = '₹0';
         return;
     }
 
@@ -281,7 +289,7 @@ function renderCart() {
         <div class="cart-item-details">
           <h4>${item.name}</h4>
           <p>Size: ${item.size}</p>
-          <p class="cart-item-price">₹${item.price}</p>
+          <p class="cart-item-price">₹${item.price.toLocaleString('en-IN')} × ${item.quantity} = ₹${itemTotal.toLocaleString('en-IN')}</p>
         </div>
         <div class="cart-item-quantity">
           <button onclick="updateQuantity('${item.id}', '${item.size}', ${item.quantity - 1})">-</button>
@@ -295,6 +303,7 @@ function renderCart() {
 
     cartContainer.innerHTML = html;
     if (cartTotal) cartTotal.textContent = `₹${total.toLocaleString('en-IN')}`;
+    if (cartTotalFinal) cartTotalFinal.textContent = `₹${total.toLocaleString('en-IN')}`;
 }
 
 // ===================================

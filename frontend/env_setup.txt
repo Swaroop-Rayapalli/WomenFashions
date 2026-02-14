@@ -1,0 +1,3 @@
+DATABASE_URL="mysql://womenfashion_user:WomenFashion2025!@localhost:3306/womenfashion_db"
+NEXTAUTH_SECRET="changeme_random_secret_string"
+NEXTAUTH_URL="http://localhost:3000"

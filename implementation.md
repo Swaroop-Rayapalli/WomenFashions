@@ -14,7 +14,7 @@ Forms & validation: react-hook-form + Zod
 
 Auth (admin): NextAuth.js (JWT/session with providers or email/password)
 
-DB: PostgreSQL + Prisma ORM
+DB: MySql
 
 Hosting: Vercel (easy Next.js deployment) + Cloudflare in front for WAF & CDN
 

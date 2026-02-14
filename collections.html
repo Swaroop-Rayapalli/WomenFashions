@@ -174,13 +174,13 @@
                             style="font-size: var(--text-2xl); color: var(--color-gold); font-weight: 700; margin: var(--space-3) 0;">
                             ₹2,500</p>
                         <div class="size-selector">
-                            <div class="size-option" onclick="this.classList.toggle('selected')">S</div>
-                            <div class="size-option" onclick="this.classList.toggle('selected')">M</div>
-                            <div class="size-option" onclick="this.classList.toggle('selected')">L</div>
-                            <div class="size-option" onclick="this.classList.toggle('selected')">XL</div>
+                            <div class="size-option">S</div>
+                            <div class="size-option selected">M</div>
+                            <div class="size-option">L</div>
+                            <div class="size-option">XL</div>
                         </div>
                         <button class="btn btn-primary" style="width: 100%;"
-                            onclick="addToCart({id: 'blouse-1', name: 'Maggam Work Blouse', price: 2500, image: 'images/designer_blouses_collection_1765197297759.png', size: 'M'})">Add
+                            onclick="addProductToCart(this, {id: 'blouse-1', name: 'Maggam Work Blouse', price: 2500, image: 'images/designer_blouses_collection_1765197297759.png'})">Add
                             to Cart</button>
                     </div>
                 </div>
@@ -196,13 +196,13 @@
                             style="font-size: var(--text-2xl); color: var(--color-gold); font-weight: 700; margin: var(--space-3) 0;">
                             ₹4,500</p>
                         <div class="size-selector">
-                            <div class="size-option" onclick="this.classList.toggle('selected')">S</div>
-                            <div class="size-option" onclick="this.classList.toggle('selected')">M</div>
-                            <div class="size-option" onclick="this.classList.toggle('selected')">L</div>
-                            <div class="size-option" onclick="this.classList.toggle('selected')">XL</div>
+                            <div class="size-option">S</div>
+                            <div class="size-option selected">M</div>
+                            <div class="size-option">L</div>
+                            <div class="size-option">XL</div>
                         </div>
                         <button class="btn btn-primary" style="width: 100%;"
-                            onclick="addToCart({id: 'blouse-2', name: 'Bridal Blouse', price: 4500, image: 'images/embroidery_work_closeup_1765197341457.png', size: 'M'})">Add
+                            onclick="addProductToCart(this, {id: 'blouse-2', name: 'Bridal Blouse', price: 4500, image: 'images/embroidery_work_closeup_1765197341457.png'})">Add
                             to Cart</button>
                     </div>
                 </div>
@@ -218,13 +218,13 @@
                             style="font-size: var(--text-2xl); color: var(--color-gold); font-weight: 700; margin: var(--space-3) 0;">
                             ₹1,800</p>
                         <div class="size-selector">
-                            <div class="size-option" onclick="this.classList.toggle('selected')">S</div>
-                            <div class="size-option" onclick="this.classList.toggle('selected')">M</div>
-                            <div class="size-option" onclick="this.classList.toggle('selected')">L</div>
-                            <div class="size-option" onclick="this.classList.toggle('selected')">XL</div>
+                            <div class="size-option">S</div>
+                            <div class="size-option selected">M</div>
+                            <div class="size-option">L</div>
+                            <div class="size-option">XL</div>
                         </div>
                         <button class="btn btn-primary" style="width: 100%;"
-                            onclick="addToCart({id: 'blouse-3', name: 'Embroidery Blouse', price: 1800, image: 'images/designer_blouses_collection_1765197297759.png', size: 'M'})">Add
+                            onclick="addProductToCart(this, {id: 'blouse-3', name: 'Embroidery Blouse', price: 1800, image: 'images/designer_blouses_collection_1765197297759.png'})">Add
                             to Cart</button>
                     </div>
                 </div>
@@ -241,13 +241,13 @@
                             style="font-size: var(--text-2xl); color: var(--color-gold); font-weight: 700; margin: var(--space-3) 0;">
                             ₹2,200</p>
                         <div class="size-selector">
-                            <div class="size-option" onclick="this.classList.toggle('selected')">S</div>
-                            <div class="size-option" onclick="this.classList.toggle('selected')">M</div>
-                            <div class="size-option" onclick="this.classList.toggle('selected')">L</div>
-                            <div class="size-option" onclick="this.classList.toggle('selected')">XL</div>
+                            <div class="size-option">S</div>
+                            <div class="size-option selected">M</div>
+                            <div class="size-option">L</div>
+                            <div class="size-option">XL</div>
                         </div>
                         <button class="btn btn-primary" style="width: 100%;"
-                            onclick="addToCart({id: 'blouse-4', name: 'Designer Blouse', price: 2200, image: 'images/designer_blouses_collection_1765197297759.png', size: 'M'})">Add
+                            onclick="addProductToCart(this, {id: 'blouse-4', name: 'Designer Blouse', price: 2200, image: 'images/designer_blouses_collection_1765197297759.png'})">Add
                             to Cart</button>
                     </div>
                 </div>
@@ -506,6 +506,7 @@
         </svg>
     </div>
 
+    <script src="js/product-size.js"></script>
     <script src="js/main.js"></script>
 </body>
 
