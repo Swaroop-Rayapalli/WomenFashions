@@ -1,0 +1,33 @@
+# Fly.io Configuration for Women Fashions Backend
+# Documentation: https://fly.io/docs/reference/configuration/
+
+app = "womenfashions-backend"
+primary_region = "sin"  # Singapore (closest to India)
+
+[build]
+  # Use Node.js buildpack
+  [build.env]
+    NODE_VERSION = "18"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = false  # Prevent auto-sleep
+  auto_start_machines = true
+  min_machines_running = 1    # Always keep 1 machine running
+
+  [[http_service.checks]]
+    grace_period = "10s"
+    interval = "30s"
+    method = "GET"
+    timeout = "5s"
+    path = "/api/health"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256
