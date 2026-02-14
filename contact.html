@@ -116,13 +116,18 @@
                     <h2 style="color: var(--color-maroon); font-size: var(--text-3xl); margin-bottom: var(--space-6);">
                         Send Us a Message</h2>
 
+                    <!-- Alert Messages -->
+                    <div id="contactAlert"
+                        style="display: none; padding: var(--space-4); border-radius: var(--radius-lg); margin-bottom: var(--space-6); font-size: var(--text-sm);">
+                    </div>
+
                     <form id="contact-form"
                         style="background: var(--color-beige); padding: var(--space-8); border-radius: var(--radius-xl);">
                         <div style="margin-bottom: var(--space-6);">
                             <label
                                 style="display: block; margin-bottom: var(--space-2); color: var(--color-gray-700); font-weight: 600;">Name
                                 *</label>
-                            <input type="text" required
+                            <input type="text" id="contactName" name="name" required
                                 style="width: 100%; padding: var(--space-4); border: 2px solid var(--color-gray-300); border-radius: var(--radius-md); font-size: var(--text-base);">
                         </div>
 
@@ -130,14 +135,14 @@
                             <label
                                 style="display: block; margin-bottom: var(--space-2); color: var(--color-gray-700); font-weight: 600;">Phone
                                 *</label>
-                            <input type="tel" required
+                            <input type="tel" id="contactPhone" name="phone" required
                                 style="width: 100%; padding: var(--space-4); border: 2px solid var(--color-gray-300); border-radius: var(--radius-md); font-size: var(--text-base);">
                         </div>
 
                         <div style="margin-bottom: var(--space-6);">
                             <label
                                 style="display: block; margin-bottom: var(--space-2); color: var(--color-gray-700); font-weight: 600;">Email</label>
-                            <input type="email"
+                            <input type="email" id="contactEmail" name="email"
                                 style="width: 100%; padding: var(--space-4); border: 2px solid var(--color-gray-300); border-radius: var(--radius-md); font-size: var(--text-base);">
                         </div>
 
@@ -145,7 +150,7 @@
                             <label
                                 style="display: block; margin-bottom: var(--space-2); color: var(--color-gray-700); font-weight: 600;">Service
                                 Interested In</label>
-                            <select
+                            <select id="contactService" name="service"
                                 style="width: 100%; padding: var(--space-4); border: 2px solid var(--color-gray-300); border-radius: var(--radius-md); font-size: var(--text-base);">
                                 <option>Select a service</option>
                                 <option>Maggam Work</option>
@@ -162,12 +167,11 @@
                             <label
                                 style="display: block; margin-bottom: var(--space-2); color: var(--color-gray-700); font-weight: 600;">Message
                                 *</label>
-                            <textarea required rows="5"
+                            <textarea id="contactMessage" name="message" required rows="5"
                                 style="width: 100%; padding: var(--space-4); border: 2px solid var(--color-gray-300); border-radius: var(--radius-md); font-size: var(--text-base); resize: vertical;"></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;"
-                            onclick="event.preventDefault(); validateForm('contact-form') && bookAppointment();">Send
+                        <button type="submit" id="submitBtn" class="btn btn-primary btn-lg" style="width: 100%;">Send
                             Message</button>
                     </form>
                 </div>
@@ -284,6 +288,69 @@
     </div>
 
     <script src="js/main.js"></script>
+    <script>
+        // Contact form submission
+        document.getElementById('contact-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const alertBox = document.getElementById('contactAlert');
+
+            // Get form data
+            const formData = {
+                name: document.getElementById('contactName').value,
+                phone: document.getElementById('contactPhone').value,
+                email: document.getElementById('contactEmail').value,
+                service: document.getElementById('contactService').value,
+                message: document.getElementById('contactMessage').value
+            };
+
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            alertBox.style.display = 'none';
+
+            try {
+                const response = await fetch('http://localhost:5000/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Show success message
+                    alertBox.style.display = 'block';
+                    alertBox.style.background = 'rgba(22, 163, 74, 0.1)';
+                    alertBox.style.border = '1px solid #16A34A';
+                    alertBox.style.color = '#16A34A';
+                    alertBox.innerHTML = '✅ ' + data.message;
+
+                    // Reset form
+                    document.getElementById('contact-form').reset();
+
+                    // Scroll to alert
+                    alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                // Show error message
+                alertBox.style.display = 'block';
+                alertBox.style.background = 'rgba(220, 38, 38, 0.1)';
+                alertBox.style.border = '1px solid #DC2626';
+                alertBox.style.color = '#DC2626';
+                alertBox.innerHTML = '❌ ' + (error.message || 'Failed to send message. Please try calling us at 9030600126.');
+            } finally {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
+        });
+    </script>
 </body>
 
 </html>
