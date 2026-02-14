@@ -12,21 +12,6 @@ Women Fashions is a premier boutique specializing in:
 - Custom Stitching
 - Kids Wear
 
-## Locations
-
-**Jubilee Hills Branch**
-- Park Avenue, Near Ramalayam
-- Jubilee Hills, Visakhapatnam
-
-**Uppada Branch**
-- Uppada Road, Near INS Kalinga
-- Uppada, Visakhapatnam, Andhra Pradesh 531163
-
-## Contact
-
-- **Phone:** 9030600126
-- **Hours:** 10:00 AM - 8:00 PM (Daily)
-
 ## Website Features
 
 - Responsive design
@@ -43,15 +28,4 @@ Women Fashions is a premier boutique specializing in:
 - CSS3 (Custom design system)
 - Vanilla JavaScript
 - Google Fonts (Playfair Display, Poppins)
-
-## Deployment
-
-This website is ready for deployment on:
-- Netlify
-- Vercel
-- GitHub Pages
 - Traditional hosting
-
----
-
-© 2025 Women Fashions. All rights reserved to Swaroop Rayapalli.
