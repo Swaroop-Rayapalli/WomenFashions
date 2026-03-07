@@ -290,9 +290,11 @@
     <script src="js/main.js"></script>
     <script>
         // API Configuration - Auto-detect environment
-        const API_URL = window.location.hostname === 'localhost'
+        const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://localhost:5000/api'
             : 'https://womenfashions-backend.onrender.com/api';
+
+        console.log('Using API URL:', API_URL);
 
         // Contact form submission
         document.getElementById('contact-form').addEventListener('submit', async function (e) {
