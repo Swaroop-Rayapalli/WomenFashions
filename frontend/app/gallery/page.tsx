@@ -1,15 +1,31 @@
+'use client';
+
 import Image from 'next/image';
+import { useCart } from '../context/CartContext';
+import { Product } from '../types';
 
 export default function GalleryPage() {
-    const images = [
-        { src: '/images/bridal_blouse_1765197647134.png', alt: 'Bridal Blouse Work' },
-        { src: '/images/embroidery_work_closeup_1765197341457.png', alt: 'Intricate Maggam Work' },
-        { src: '/images/kids_lehenga_1765197573435.png', alt: 'Kids Lehenga' },
-        { src: '/images/designer_blouses_collection_1765197297759.png', alt: 'Modern Blouse Design' },
-        { src: '/images/saree_collection_1765197553661.png', alt: 'Saree Draping' },
-        { src: '/images/fabric_collection_display_1765197321006.png', alt: 'Fabric Collection' },
-        { src: '/images/WomenFashion-Entrance.png', alt: 'Our Boutique' },
+    const { addToCart } = useCart();
+
+    const images: Product[] = [
+        { id: 'gal-1', image: '/images/bridal_blouse_1765197647134.png', name: 'Bridal Blouse Work', price: 2500 },
+        { id: 'gal-2', image: '/images/embroidery_work_closeup_1765197341457.png', name: 'Intricate Maggam Work', price: 1800 },
+        { id: 'gal-3', image: '/images/kids_lehenga_1765197573435.png', name: 'Kids Lehenga', price: 1500 },
+        { id: 'gal-4', image: '/images/designer_blouses_collection_1765197297759.png', name: 'Modern Blouse Design', price: 1200 },
+        { id: 'gal-5', image: '/images/saree_collection_1765197553661.png', name: 'Saree Draping', price: 3000 },
+        { id: 'gal-6', image: '/images/fabric_collection_display_1765197321006.png', name: 'Fabric Collection', price: 800 },
+        { id: 'gal-7', image: '/images/WomenFashion-Entrance.png', name: 'Our Boutique', price: 0 },
     ];
+
+    const handleAddToCart = (item: any) => {
+        if (item.price === 0) return;
+        addToCart({
+            id: item.id,
+            name: item.name,
+            price: item.price,
+            image: item.src
+        });
+    };
 
     return (
         <div style={{ marginTop: '70px' }}>
@@ -23,19 +39,30 @@ export default function GalleryPage() {
             <section className="section bg-white">
                 <div className="container">
                     <div className="grid grid-3">
-                        {images.map((img, index) => (
-                            <div key={index} className="card" style={{ cursor: 'pointer' }}>
-                                <div style={{ position: 'relative', height: '300px' }}>
+                        {images.map((img) => (
+                            <div key={img.id} className="card">
+                                <div style={{ position: 'relative', height: '300px', overflow: 'hidden' }}>
                                     <Image
-                                        src={img.src}
-                                        alt={img.alt}
+                                        src={img.image}
+                                        alt={img.name}
                                         fill
                                         style={{ objectFit: 'cover' }}
                                         className="hover:scale-110 transition-transform duration-500"
                                     />
                                 </div>
                                 <div className="card-body text-center">
-                                    <p style={{ fontWeight: 500, color: 'var(--color-maroon)' }}>{img.alt}</p>
+                                    <p style={{ fontWeight: 600, color: 'var(--color-maroon)', marginBottom: 'var(--space-2)' }}>{img.name}</p>
+                                    {img.price > 0 && (
+                                        <>
+                                            <p style={{ fontWeight: 700, fontSize: '1.2rem', marginBottom: 'var(--space-3)' }}>₹{img.price}</p>
+                                            <button
+                                                onClick={() => addToCart(img)}
+                                                className="btn btn-sm btn-primary w-full"
+                                            >
+                                                Add to Cart
+                                            </button>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         ))}

@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import WhatsAppFloat from "./components/WhatsAppFloat";
+import { CartProvider } from "./context/CartContext";
 
 const playfair = Playfair_Display({
   variable: "--font-heading",
@@ -31,12 +32,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${playfair.variable} ${poppins.variable} antialiased`}>
-        <Header />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
-        <WhatsAppFloat />
+        <CartProvider>
+          <Header />
+          <main className="min-h-screen">
+            {children}
+          </main>
+          <Footer />
+          <WhatsAppFloat />
+        </CartProvider>
       </body>
     </html>
   );

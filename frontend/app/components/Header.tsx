@@ -2,9 +2,11 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useCart } from '../context/CartContext';
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { totalItems } = useCart();
 
     const navLinks = [
         { href: '/', label: 'Home' },
@@ -40,23 +42,25 @@ export default function Header() {
                 <div className="navbar-actions">
                     <Link href="/cart" className="btn btn-sm btn-outline" style={{ position: 'relative' }}>
                         🛒 Cart
-                        <span className="cart-count" style={{
-                            position: 'absolute',
-                            top: '-8px',
-                            right: '-8px',
-                            background: 'var(--color-maroon)',
-                            color: 'white',
-                            borderRadius: '50%',
-                            width: '20px',
-                            height: '20px',
-                            display: 'none',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontSize: '11px',
-                            fontWeight: 'bold'
-                        }}>
-                            0
-                        </span>
+                        {totalItems > 0 && (
+                            <span className="cart-count" style={{
+                                position: 'absolute',
+                                top: '-8px',
+                                right: '-8px',
+                                background: 'var(--color-maroon)',
+                                color: 'white',
+                                borderRadius: '50%',
+                                width: '20px',
+                                height: '20px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '11px',
+                                fontWeight: 'bold'
+                            }}>
+                                {totalItems}
+                            </span>
+                        )}
                     </Link>
 
                     {/* Mobile Menu Toggle */}

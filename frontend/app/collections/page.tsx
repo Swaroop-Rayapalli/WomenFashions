@@ -1,7 +1,47 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { useCart } from '../context/CartContext';
 
 export default function CollectionsPage() {
+    const { addToCart } = useCart();
+
+    const collections = [
+        {
+            id: 'coll-1',
+            name: 'Bridal Collection',
+            description: 'Stunning bridal blouses and lehengas designed to make your special day unforgettable. Intricate Maggam work and heavy embroidery.',
+            image: '/images/bridal_blouse_1765197647134.png',
+            price: 5000,
+            link: '/gallery'
+        },
+        {
+            id: 'coll-2',
+            name: 'Kids Wear',
+            description: 'Adorable and comfortable ethnic wear for children. Pattu pavadas, frocks, and lehengas customized for little ones.',
+            image: '/images/kids_lehenga_1765197573435.png',
+            price: 2500,
+            link: '/gallery'
+        },
+        {
+            id: 'coll-3',
+            name: 'Designer Blouses',
+            description: 'Trendy cuts, back designs, and modern patterns. Perfect for parties and festive occasions.',
+            image: '/images/designer_blouses_collection_1765197297759.png',
+            price: 1500,
+            link: '/gallery'
+        },
+        {
+            id: 'coll-4',
+            name: 'Sarees & Fabrics',
+            description: 'Curated collection of Banaras, Silk, and Fancy sarees. We also have a wide range of fabrics for custom stitching.',
+            image: '/images/saree_collection_1765197553661.png',
+            price: 3500,
+            link: '/contact'
+        }
+    ];
+
     return (
         <div style={{ marginTop: '70px' }}>
             {/* Hero */}
@@ -20,85 +60,32 @@ export default function CollectionsPage() {
                     </div>
 
                     <div className="grid grid-2">
-                        {/* Bridal */}
-                        <div className="card">
-                            <div style={{ position: 'relative', height: '300px' }}>
-                                <Image
-                                    src="/images/bridal_blouse_1765197647134.png"
-                                    alt="Bridal Collection"
-                                    fill
-                                    style={{ objectFit: 'cover' }}
-                                />
+                        {collections.map((item) => (
+                            <div key={item.id} className="card">
+                                <div style={{ position: 'relative', height: '300px' }}>
+                                    <Image
+                                        src={item.image}
+                                        alt={item.name}
+                                        fill
+                                        style={{ objectFit: 'cover' }}
+                                    />
+                                </div>
+                                <div className="card-body">
+                                    <h3 className="card-title">{item.name}</h3>
+                                    <p className="card-text">{item.description}</p>
+                                    <p style={{ fontWeight: 700, fontSize: '1.4rem', color: 'var(--color-maroon)', marginBottom: 'var(--space-4)' }}>₹{item.price}</p>
+                                    <div className="flex gap-2">
+                                        <button
+                                            onClick={() => addToCart({ id: item.id, name: item.name, price: item.price, image: item.image })}
+                                            className="btn btn-primary flex-1"
+                                        >
+                                            Add to Cart
+                                        </button>
+                                        <Link href={item.link} className="btn btn-outline flex-1 text-center">Details</Link>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="card-body">
-                                <h3 className="card-title">Bridal Collection</h3>
-                                <p className="card-text">
-                                    Stunning bridal blouses and lehengas designed to make your special day unforgettable.
-                                    Intricate Maggam work and heavy embroidery.
-                                </p>
-                                <Link href="/gallery" className="btn btn-primary">View Gallery</Link>
-                            </div>
-                        </div>
-
-                        {/* Kids */}
-                        <div className="card" id="kids">
-                            <div style={{ position: 'relative', height: '300px' }}>
-                                <Image
-                                    src="/images/kids_lehenga_1765197573435.png"
-                                    alt="Kids Collection"
-                                    fill
-                                    style={{ objectFit: 'cover' }}
-                                />
-                            </div>
-                            <div className="card-body">
-                                <h3 className="card-title">Kids Wear</h3>
-                                <p className="card-text">
-                                    Adorable and comfortable ethnic wear for children. Pattu pavadas, frocks, and
-                                    lehengas customized for little ones.
-                                </p>
-                                <Link href="/gallery" className="btn btn-primary">View Gallery</Link>
-                            </div>
-                        </div>
-
-                        {/* Designer Blouses */}
-                        <div className="card">
-                            <div style={{ position: 'relative', height: '300px' }}>
-                                <Image
-                                    src="/images/designer_blouses_collection_1765197297759.png"
-                                    alt="Designer Blouses"
-                                    fill
-                                    style={{ objectFit: 'cover' }}
-                                />
-                            </div>
-                            <div className="card-body">
-                                <h3 className="card-title">Designer Blouses</h3>
-                                <p className="card-text">
-                                    Trendy cuts, back designs, and modern patterns. Perfect for parties and
-                                    festive occasions.
-                                </p>
-                                <Link href="/gallery" className="btn btn-primary">View Gallery</Link>
-                            </div>
-                        </div>
-
-                        {/* Sarees */}
-                        <div className="card">
-                            <div style={{ position: 'relative', height: '300px' }}>
-                                <Image
-                                    src="/images/saree_collection_1765197553661.png"
-                                    alt="Saree Collection"
-                                    fill
-                                    style={{ objectFit: 'cover' }}
-                                />
-                            </div>
-                            <div className="card-body">
-                                <h3 className="card-title">Sarees & Fabrics</h3>
-                                <p className="card-text">
-                                    Curated collection of Banaras, Silk, and Fancy sarees. We also have a wide
-                                    range of fabrics for custom stitching.
-                                </p>
-                                <Link href="/contact" className="btn btn-primary">Enquire Now</Link>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </section>
