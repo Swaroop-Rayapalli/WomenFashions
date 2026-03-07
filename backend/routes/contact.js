@@ -34,7 +34,8 @@ router.post('/', async (req, res, next) => {
         console.error('Contact form error:', error);
         res.status(500).json({
             success: false,
-            message: 'Failed to send message. Please try calling us directly at 9030600126.'
+            message: 'Failed to send message. Please try calling us directly at 9030600126.',
+            error: error.message // Temporarily expose for debugging the 500 error
         });
     }
 });

@@ -6,17 +6,24 @@ const createTransporter = () => {
     const emailPassword = process.env.EMAIL_PASSWORD;
 
     if (!emailPassword) {
-        console.error('❌ EMAIL_PASSWORD is not set in .env file');
-        throw new Error('Email configuration is incomplete. Please set EMAIL_PASSWORD in .env file.');
+        console.error('❌ EMAIL_PASSWORD is not set in environment variables');
+        throw new Error('Email configuration is incomplete. Missing EMAIL_PASSWORD.');
     }
 
     console.log('📧 Creating email transporter for:', emailUser);
 
+    // Using host/port instead of "service: gmail" for better reliability on cloud hosts
     return nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true, // use SSL
         auth: {
             user: emailUser,
             pass: emailPassword
+        },
+        tls: {
+            // Do not fail on invalid certs (common issue on some host environments)
+            rejectUnauthorized: false
         }
     });
 };
