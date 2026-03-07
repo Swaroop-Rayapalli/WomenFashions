@@ -15,24 +15,53 @@ const app = express();
 app.use(helmet()); // Security headers
 
 // CORS configuration - support multiple origins
-const allowedOrigins = [
+const rawAllowedOrigins = [
     process.env.FRONTEND_URL,
     'http://localhost:3000',
     'http://localhost:8000',
     'https://womensfashions.netlify.app',
     'https://womenfashions.netlify.app'
-].filter(Boolean);
+];
+
+// Normalize origins: Ensure they start with https:// if they look like domains
+const allowedOrigins = rawAllowedOrigins
+    .filter(Boolean)
+    .map(url => {
+        if (!url.startsWith('http')) {
+            return `https://${url}`;
+        }
+        return url;
+    });
+
+// Also add variants without trailing slashes
+const finalAllowedOrigins = [...new Set([
+    ...allowedOrigins,
+    ...allowedOrigins.map(url => url.replace(/\/$/, ''))
+])];
+
+console.log('Final Allowed Origins:', finalAllowedOrigins);
 
 app.use(cors({
     origin: function (origin, callback) {
-        // allow requests with no origin (like mobile apps or curl requests)
+        // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
-            var msg = 'The CORS policy for this site does not ' +
-                'allow access from the specified Origin.';
-            return callback(new Error(msg), false);
+
+        // Normalize incoming origin for checking
+        const normalizedOrigin = origin.replace(/\/$/, '');
+
+        // Check if origin is in our list OR matches a netlify.app subdomain
+        const isAllowed = finalAllowedOrigins.includes(normalizedOrigin) ||
+            normalizedOrigin.endsWith('.netlify.app') ||
+            normalizedOrigin.includes('localhost');
+
+        if (isAllowed) {
+            console.log(`CORS allowed for origin: ${origin}`);
+            callback(null, true);
+        } else {
+            console.error(`CORS blocked for origin: ${origin}`);
+            console.error(`Allowed Origins were: ${JSON.stringify(finalAllowedOrigins)}`);
+            callback(new Error('Not allowed by CORS'));
         }
-        return callback(null, true);
     },
     credentials: true
 }));
