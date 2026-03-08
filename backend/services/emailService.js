@@ -12,17 +12,16 @@ const createTransporter = () => {
 
     console.log('📧 Creating email transporter for:', emailUser);
 
-    // Using host/port instead of "service: gmail" for better reliability on cloud hosts
+    // Using port 587 + STARTTLS for maximum cloud host compatibility (port 465 is often blocked)
     return nodemailer.createTransport({
         host: 'smtp.gmail.com',
-        port: 465,
-        secure: true, // use SSL
+        port: 587,
+        secure: false, // use STARTTLS
         auth: {
             user: emailUser,
             pass: emailPassword
         },
         tls: {
-            // Do not fail on invalid certs (common issue on some host environments)
             rejectUnauthorized: false
         }
     });

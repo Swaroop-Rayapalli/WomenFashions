@@ -115,17 +115,16 @@ const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
     try {
-        // Test database connection
+        // Test database connection (non-fatal — contact route doesn't need DB)
         const connected = await testConnection();
         if (!connected) {
-            console.error('Failed to connect to database. Exiting...');
-            process.exit(1);
+            console.warn('⚠️  DB connection failed — continuing without DB. Contact form will still work.');
+        } else {
+            // Sync database (create tables) only if connected
+            await syncDatabase(false);
         }
 
-        // Sync database (create tables)
-        await syncDatabase(false); // Set to true to reset database
-
-        // Start listening
+        // Start listening regardless of DB status
         app.listen(PORT, () => {
             console.log(`🚀 Server running on port ${PORT}`);
             console.log(`📍 Environment: ${process.env.NODE_ENV}`);
