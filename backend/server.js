@@ -49,9 +49,10 @@ app.use(cors({
         // Normalize incoming origin for checking
         const normalizedOrigin = origin.replace(/\/$/, '');
 
-        // Check if origin is in our list OR matches a netlify.app subdomain
+        // Check if origin is in our list OR matches a netlify/vercel subdomain
         const isAllowed = finalAllowedOrigins.includes(normalizedOrigin) ||
             normalizedOrigin.endsWith('.netlify.app') ||
+            normalizedOrigin.endsWith('.vercel.app') ||
             normalizedOrigin.includes('localhost');
 
         if (isAllowed) {

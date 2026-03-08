@@ -1,8 +1,8 @@
     # Deployment Guide - Women Fashions
 
 ## Current Setup
-- ✅ **Frontend**: Deployed on Netlify (static HTML/CSS/JS)
-- ❌ **Backend**: Not deployed (needs to be deployed for email to work)
+- ✅ **Frontend**: Deployed on Vercel (static HTML/CSS/JS)
+- ✅ **Backend**: Deployed on Render (Handles Contact form emails)
 
 ## Problem
 The contact form tries to connect to `http://localhost:5000/api/contact` which only works on your local machine. On Netlify, it fails because there's no backend server.
@@ -56,7 +56,7 @@ The contact form tries to connect to `http://localhost:5000/api/contact` which o
    PORT=5000
    EMAIL_USER=pawcare376@gmail.com
    EMAIL_PASSWORD=stdybnndcdpghrxv
-   FRONTEND_URL=https://your-netlify-site.netlify.app
+   FRONTEND_URL=https://your-vercel-site.vercel.app
    JWT_SECRET=womenfashion_super_secret_key_2025_change_this_in_production
    JWT_EXPIRE=7d
    ```
@@ -82,12 +82,12 @@ const response = await fetch('https://womenfashions-backend.onrender.com/api/con
 ### Step 4: Deploy Updated Frontend
 
 ```bash
-git add contact.html
-git commit -m "Update API URL for production"
+git add contact.html vercel.json
+git commit -m "Update for Vercel deployment"
 git push
 ```
 
-Netlify will auto-deploy the changes!
+Vercel will auto-deploy the changes!
 
 ---
 
@@ -106,7 +106,7 @@ Let me know if you want this approach instead!
 ## Testing
 
 After deployment:
-1. Visit your Netlify site
+1. Visit your Vercel site
 2. Go to Contact page
 3. Submit the form
 4. Check pawcare376@gmail.com for the email!
@@ -121,7 +121,7 @@ After deployment:
 - Make sure `package.json` has correct start script
 
 **CORS errors:**
-- Make sure `FRONTEND_URL` in Render matches your Netlify URL exactly
+- Make sure `FRONTEND_URL` in Render matches your Vercel URL exactly
 - Include `https://` in the URL
 
 **Email not sending:**
