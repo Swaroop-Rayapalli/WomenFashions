@@ -9,7 +9,7 @@ if (!dbUrl) {
     // Don't exit here, let testConnection handle it so server.js can start (per original design)
 }
 
-const sequelize = dbUrl ? new Sequelize(dbUrl, {
+const sequelize = new Sequelize(dbUrl || 'postgresql://localhost:5432/db', {
     dialect: 'postgres',
     protocol: 'postgres',
     dialectOptions: {

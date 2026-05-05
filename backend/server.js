@@ -137,9 +137,9 @@ const PORT = process.env.PORT || 5000;
 const startServer = async () => {
     try {
         // Test database connection (non-fatal — contact route doesn't need DB)
-        const connected = await testConnection();
-        if (!connected) {
-            console.warn('⚠️  DB connection failed — continuing without DB. Contact form will still work.');
+        const isConnected = await testConnection();
+        if (!isConnected && process.env.NODE_ENV === 'production') {
+            console.error('⚠️ Database connection failed. Continuing in degraded mode...');
         } else {
             // Sync database (create tables) only if connected
             await syncDatabase(false);
