@@ -175,3 +175,5 @@ process.on('unhandledRejection', (err) => {
     console.error('Unhandled Promise Rejection:', err);
     process.exit(1);
 });
+// Export for Vercel
+module.exports = app;
