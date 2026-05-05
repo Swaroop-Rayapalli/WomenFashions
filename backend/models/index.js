@@ -40,7 +40,7 @@ Object.keys(models).forEach(modelName => {
 // Sync database (create tables if they don't exist)
 const syncDatabase = async (force = false) => {
     try {
-        await sequelize.sync({ force, alter: false });
+        await sequelize.sync({ force, alter: true });
         console.log(`✅ Database ${force ? 'reset and ' : ''}synchronized successfully`);
     } catch (error) {
         console.error('❌ Error synchronizing database:', error.message);

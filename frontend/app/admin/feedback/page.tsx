@@ -65,9 +65,8 @@ export default function AdminFeedback() {
             <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
                 <div className="mb-12">
                     <h1 style={{ fontSize: '32px', fontWeight: 700, color: '#111827' }}>Customer Feedback</h1>
-                    <p style={{ color: '#6b7280', marginTop: '4px' }}>All feedback is currently auto-approved. Use this panel to moderate or delete inappropriate content.</p>
+                    <p style={{ color: '#6b7280', marginTop: '4px' }}>Your feedback is submitted successfully!</p>
                 </div>
-
                 {status.text && (
                     <div style={{ 
                         padding: '16px', 

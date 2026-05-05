@@ -20,6 +20,7 @@ export default function AdminProfile() {
     const [isUpdating, setIsUpdating] = useState(false);
     const [message, setMessage] = useState({ type: '', text: '' });
     const [isViewerOpen, setIsViewerOpen] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
         if (user) {
@@ -255,37 +256,97 @@ export default function AdminProfile() {
                     <form onSubmit={handleUpdatePassword}>
                         <div className="admin-form-group">
                             <label className="admin-label">Current Password</label>
-                            <input 
-                                type="password" 
-                                name="currentPassword"
-                                className="admin-input"
-                                value={formData.currentPassword} 
-                                onChange={handleChange}
-                                placeholder="Enter current password"
-                            />
+                            <div style={{ position: 'relative' }}>
+                                <input 
+                                    type={showPassword ? "text" : "password"} 
+                                    name="currentPassword"
+                                    className="admin-input"
+                                    value={formData.currentPassword} 
+                                    onChange={handleChange}
+                                    placeholder="Enter current password"
+                                    style={{ paddingRight: '45px' }}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    style={{
+                                        position: 'absolute',
+                                        right: '10px',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        background: 'none',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                        fontSize: '1.2rem',
+                                        color: '#6b7280'
+                                    }}
+                                >
+                                    {showPassword ? '👁️' : '👁️‍🗨️'}
+                                </button>
+                            </div>
                         </div>
                         <div className="admin-grid admin-grid-2">
                             <div className="admin-form-group">
                                 <label className="admin-label">New Password</label>
-                                <input 
-                                    type="password" 
-                                    name="newPassword"
-                                    className="admin-input"
-                                    value={formData.newPassword} 
-                                    onChange={handleChange}
-                                    placeholder="Letter, number, & special symbol required"
-                                />
+                                <div style={{ position: 'relative' }}>
+                                    <input 
+                                        type={showPassword ? "text" : "password"} 
+                                        name="newPassword"
+                                        className="admin-input"
+                                        value={formData.newPassword} 
+                                        onChange={handleChange}
+                                        placeholder="Letter, number, & special symbol required"
+                                        style={{ paddingRight: '45px' }}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        style={{
+                                            position: 'absolute',
+                                            right: '10px',
+                                            top: '50%',
+                                            transform: 'translateY(-50%)',
+                                            background: 'none',
+                                            border: 'none',
+                                            cursor: 'pointer',
+                                            fontSize: '1.2rem',
+                                            color: '#6b7280'
+                                        }}
+                                    >
+                                        {showPassword ? '👁️' : '👁️‍🗨️'}
+                                    </button>
+                                </div>
                             </div>
                             <div className="admin-form-group">
                                 <label className="admin-label">Confirm New Password</label>
-                                <input 
-                                    type="password" 
-                                    name="confirmPassword"
-                                    className="admin-input"
-                                    value={formData.confirmPassword} 
-                                    onChange={handleChange}
-                                    placeholder="Repeat new password"
-                                />
+                                <div style={{ position: 'relative' }}>
+                                    <input 
+                                        type={showPassword ? "text" : "password"} 
+                                        name="confirmPassword"
+                                        className="admin-input"
+                                        value={formData.confirmPassword} 
+                                        onChange={handleChange}
+                                        placeholder="Repeat new password"
+                                        style={{ paddingRight: '45px' }}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        style={{
+                                            position: 'absolute',
+                                            right: '10px',
+                                            top: '50%',
+                                            transform: 'translateY(-50%)',
+                                            background: 'none',
+                                            border: 'none',
+                                            cursor: 'pointer',
+                                            fontSize: '1.2rem',
+                                            color: '#6b7280'
+                                        }}
+                                    >
+                                        {showPassword ? '👁️' : '👁️‍🗨️'}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>

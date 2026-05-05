@@ -41,7 +41,8 @@ exports.register = async (req, res, next) => {
                 id: user.id,
                 username: user.username,
                 email: user.email,
-                role: user.role
+                role: user.role,
+                avatarUrl: user.avatarUrl
             },
             token
         });
@@ -98,7 +99,8 @@ exports.login = async (req, res, next) => {
                 id: user.id,
                 username: user.username,
                 email: user.email,
-                role: user.role
+                role: user.role,
+                avatarUrl: user.avatarUrl
             },
             token
         });
@@ -152,7 +154,8 @@ exports.customerRegister = async (req, res, next) => {
                 name: customer.name,
                 phone: customer.phone,
                 username: customer.username,
-                role: 'customer'
+                role: 'customer',
+                avatarUrl: customer.avatarUrl
             },
             token
         });
@@ -217,7 +220,8 @@ exports.customerLogin = async (req, res, next) => {
                 name: customer.name,
                 phone: customer.phone,
                 username: customer.username,
-                role: 'customer'
+                role: 'customer',
+                avatarUrl: customer.avatarUrl
             },
             token
         });

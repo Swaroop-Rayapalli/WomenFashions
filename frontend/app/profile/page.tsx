@@ -260,13 +260,32 @@ export default function ProfilePage() {
                             <h3 style={{ borderBottom: '1px solid var(--color-gray-200)', paddingBottom: 'var(--space-2)' }}>Security</h3>
                             <div>
                                 <label style={{ display: 'block', marginBottom: 'var(--space-1)', fontWeight: 600 }}>Current Password</label>
-                                <input 
-                                    type={showPassword ? "text" : "password"} 
-                                    value={currentPassword} 
-                                    onChange={(e) => setCurrentPassword(e.target.value)}
-                                    placeholder="Enter current password"
-                                    style={{ width: '100%', padding: 'var(--space-3)', border: '1px solid var(--color-gray-300)', borderRadius: 'var(--radius-md)' }}
-                                />
+                                <div style={{ position: 'relative' }}>
+                                    <input 
+                                        type={showPassword ? "text" : "password"} 
+                                        value={currentPassword} 
+                                        onChange={(e) => setCurrentPassword(e.target.value)}
+                                        placeholder="Enter current password"
+                                        style={{ width: '100%', padding: 'var(--space-3)', paddingRight: '50px', border: '1px solid var(--color-gray-300)', borderRadius: 'var(--radius-md)' }}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        style={{
+                                            position: 'absolute',
+                                            right: '10px',
+                                            top: '50%',
+                                            transform: 'translateY(-50%)',
+                                            background: 'none',
+                                            border: 'none',
+                                            cursor: 'pointer',
+                                            fontSize: '1.2rem',
+                                            color: '#6b7280'
+                                        }}
+                                    >
+                                        {showPassword ? '👁️' : '👁️‍🗨️'}
+                                    </button>
+                                </div>
                             </div>
                             <div>
                                 <label style={{ display: 'block', marginBottom: 'var(--space-1)', fontWeight: 600 }}>New Password</label>
@@ -288,13 +307,12 @@ export default function ProfilePage() {
                                             transform: 'translateY(-50%)',
                                             background: 'none',
                                             border: 'none',
-                                            color: 'var(--color-maroon)',
-                                            fontSize: '0.8rem',
-                                            fontWeight: 600,
-                                            cursor: 'pointer'
+                                            cursor: 'pointer',
+                                            fontSize: '1.2rem',
+                                            color: '#6b7280'
                                         }}
                                     >
-                                        {showPassword ? 'Hide' : 'Show'}
+                                        {showPassword ? '👁️' : '👁️‍🗨️'}
                                     </button>
                                 </div>
                             </div>
