@@ -11,4 +11,5 @@ export interface Product {
 export interface CartItem extends Product {
     quantity: number;
     size?: string; // Selected size in cart
+    cartId?: number;
 }
