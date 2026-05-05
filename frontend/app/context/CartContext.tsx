@@ -14,6 +14,7 @@ interface CartContextType {
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
+const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '');
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [cart, setCart] = useState<CartItem[]>([]);
@@ -33,7 +34,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
             const token = localStorage.getItem('token');
             if (token) {
                 try {
-                    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/cart`, {
+                    const res = await fetch(`${API_URL}/api/cart`, {
                         headers: { 'Authorization': `Bearer ${token}` },
                         cache: 'no-store'
                     });
@@ -83,7 +84,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         // Sync with backend
         if (token) {
             try {
-                await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/cart`, {
+                await fetch(`${API_URL}/api/cart`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -105,7 +106,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         if (token && itemToRemove?.cartId) {
             try {
-                await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/cart/${itemToRemove.cartId}`, {
+                await fetch(`${API_URL}/api/cart/${itemToRemove.cartId}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
