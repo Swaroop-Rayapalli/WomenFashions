@@ -54,7 +54,7 @@ export default function LoginPage() {
                     password: formData.password
                 });
             } else if (mode === 'forgot-password') {
-                const res = await fetch(`${(process.env.NEXT_PUBLIC_API_URL || '').replace(/\/api$/, '')}/api/auth/customer/forgot-password`, {
+                const res = await fetch(`${(process.env.NEXT_PUBLIC_API_URL || '').replace(/\/api\/?$/, '')}/api/auth/customer/forgot-password`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ phone: formData.phone })
@@ -69,7 +69,7 @@ export default function LoginPage() {
                 if (!passwordRegex.test(formData.newPassword)) {
                     throw new Error('New password must contain both letters and numbers.');
                 }
-                const res = await fetch(`${(process.env.NEXT_PUBLIC_API_URL || '').replace(/\/api$/, '')}/api/auth/customer/reset-password`, {
+                const res = await fetch(`${(process.env.NEXT_PUBLIC_API_URL || '').replace(/\/api\/?$/, '')}/api/auth/customer/reset-password`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
