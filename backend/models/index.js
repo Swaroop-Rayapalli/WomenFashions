@@ -8,8 +8,11 @@ const ProductImage = require('./ProductImage')(sequelize);
 const ProductSize = require('./ProductSize')(sequelize);
 const Customer = require('./Customer')(sequelize);
 const CustomerAddress = require('./CustomerAddress')(sequelize);
+const Cart = require('./Cart')(sequelize);
 const Order = require('./Order')(sequelize);
 const OrderItem = require('./OrderItem')(sequelize);
+const Feedback = require('./Feedback')(sequelize);
+const FeedbackInteraction = require('./FeedbackInteraction')(sequelize);
 
 // Store models in an object
 const models = {
@@ -20,8 +23,11 @@ const models = {
     ProductSize,
     Customer,
     CustomerAddress,
+    Cart,
     Order,
-    OrderItem
+    OrderItem,
+    Feedback,
+    FeedbackInteraction
 };
 
 // Set up associations
@@ -34,7 +40,7 @@ Object.keys(models).forEach(modelName => {
 // Sync database (create tables if they don't exist)
 const syncDatabase = async (force = false) => {
     try {
-        await sequelize.sync({ force, alter: !force });
+        await sequelize.sync({ force, alter: false });
         console.log(`✅ Database ${force ? 'reset and ' : ''}synchronized successfully`);
     } catch (error) {
         console.error('❌ Error synchronizing database:', error.message);

@@ -1,13 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const { getCategories, createCategory } = require('../controllers/categoriesController');
 const { protect, authorize } = require('../middleware/auth');
 
-router.get('/', (req, res) => {
-    res.json({ success: true, message: 'Categories route - coming soon' });
-});
+router.get('/', getCategories);
 
-router.post('/', protect, authorize('admin'), (req, res) => {
-    res.json({ success: true, message: 'Create category - coming soon' });
-});
+router.post('/', protect, authorize('admin', 'staff'), createCategory);
 
 module.exports = router;

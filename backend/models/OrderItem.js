@@ -42,6 +42,14 @@ module.exports = (sequelize) => {
         subtotal: {
             type: DataTypes.DECIMAL(10, 2),
             allowNull: false
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            field: 'created_at'
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            field: 'updated_at'
         }
     }, {
         tableName: 'order_items',

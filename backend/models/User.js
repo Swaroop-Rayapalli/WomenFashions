@@ -24,6 +24,15 @@ module.exports = (sequelize) => {
                 isEmail: true
             }
         },
+        avatarUrl: {
+            type: DataTypes.STRING(255),
+            field: 'avatar_url'
+        },
+        phone: {
+            type: DataTypes.STRING(15),
+            unique: true,
+            allowNull: true
+        },
         password: {
             type: DataTypes.STRING(255),
             allowNull: false
@@ -40,6 +49,14 @@ module.exports = (sequelize) => {
         lastLogin: {
             type: DataTypes.DATE,
             field: 'last_login'
+        },
+        resetPasswordOTP: {
+            type: DataTypes.STRING(10),
+            field: 'reset_password_otp'
+        },
+        resetPasswordExpires: {
+            type: DataTypes.DATE,
+            field: 'reset_password_expires'
         }
     }, {
         tableName: 'users',

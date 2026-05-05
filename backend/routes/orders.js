@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 const { protect, authorize } = require('../middleware/auth');
 
-router.get('/', protect, authorize('admin'), (req, res) => {
-    res.json({ success: true, message: 'Orders route - coming soon' });
-});
+const { getMyOrders, createOrder, getAllOrders, updateOrderStatus } = require('../controllers/orderController');
 
-router.post('/', (req, res) => {
-    res.json({ success: true, message: 'Create order - coming soon' });
-});
+router.get('/', protect, getMyOrders);
+router.post('/', protect, createOrder);
+
+// Admin & Staff routes
+router.get('/admin', protect, authorize('admin', 'staff'), getAllOrders);
+router.put('/:id/status', protect, authorize('admin', 'staff'), updateOrderStatus);
 
 module.exports = router;

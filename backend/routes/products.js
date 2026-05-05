@@ -2,25 +2,14 @@ const express = require('express');
 const router = express.Router();
 const { protect, authorize } = require('../middleware/auth');
 
-// Placeholder routes - to be implemented
-router.get('/', (req, res) => {
-    res.json({ success: true, message: 'Products route - coming soon' });
-});
+const { getProducts, getProduct, createProduct, updateProduct, deleteProduct } = require('../controllers/productsController');
 
-router.get('/:id', (req, res) => {
-    res.json({ success: true, message: 'Get single product - coming soon' });
-});
+// Routes
+router.get('/', getProducts);
+router.get('/:id', getProduct);
 
-router.post('/', protect, authorize('admin'), (req, res) => {
-    res.json({ success: true, message: 'Create product - coming soon' });
-});
-
-router.put('/:id', protect, authorize('admin'), (req, res) => {
-    res.json({ success: true, message: 'Update product - coming soon' });
-});
-
-router.delete('/:id', protect, authorize('admin'), (req, res) => {
-    res.json({ success: true, message: 'Delete product - coming soon' });
-});
+router.post('/', protect, authorize('admin', 'staff'), createProduct);
+router.put('/:id', protect, authorize('admin', 'staff'), updateProduct);
+router.delete('/:id', protect, authorize('admin', 'staff'), deleteProduct);
 
 module.exports = router;

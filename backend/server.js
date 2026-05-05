@@ -18,9 +18,7 @@ app.use(helmet()); // Security headers
 const rawAllowedOrigins = [
     process.env.FRONTEND_URL,
     'http://localhost:3000',
-    'http://localhost:8000',
-    'https://womensfashions.netlify.app',
-    'https://womenfashions.netlify.app'
+    'http://localhost:8000'
 ];
 
 // Normalize origins: Ensure they start with https:// if they look like domains
@@ -75,7 +73,27 @@ const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100 // limit each IP to 100 requests per windowMs
 });
+
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 20, // limit each IP to 20 login requests per windowMs
+    message: 'Too many login attempts, please try again after 15 minutes'
+});
+
 app.use('/api/', limiter);
+app.use('/api/auth/login', authLimiter);
+
+// Global Sanitization Middleware
+app.use((req, res, next) => {
+    if (req.body) {
+        for (const key in req.body) {
+            if (typeof req.body[key] === 'string') {
+                req.body[key] = req.body[key].trim();
+            }
+        }
+    }
+    next();
+});
 
 // Serve static files (uploads)
 app.use('/uploads', express.static('uploads'));
@@ -86,8 +104,11 @@ app.use('/api/products', require('./routes/products'));
 app.use('/api/categories', require('./routes/categories'));
 app.use('/api/orders', require('./routes/orders'));
 app.use('/api/customers', require('./routes/customers'));
+app.use('/api/cart', require('./routes/cart'));
+app.use('/api/payments', require('./routes/payments'));
 app.use('/api/upload', require('./routes/upload'));
 app.use('/api/contact', require('./routes/contact'));
+app.use('/api/feedback', require('./routes/feedback'));
 
 
 // Health check route
@@ -138,6 +159,16 @@ const startServer = async () => {
 };
 
 startServer();
+
+// Graceful shutdown
+const shutdown = async () => {
+    console.log('Shutting down gracefully...');
+    // Add any cleanup logic here (close DB, etc.)
+    process.exit(0);
+};
+
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {

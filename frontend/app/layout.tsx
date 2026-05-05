@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Playfair_Display, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import WhatsAppFloat from "./components/WhatsAppFloat";
 import { CartProvider } from "./context/CartContext";
+import { AuthProvider } from "./context/AuthContext";
+import { ThemeProvider } from "./context/ThemeContext";
 
 const playfair = Playfair_Display({
   variable: "--font-heading",
@@ -30,16 +33,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body className={`${playfair.variable} ${poppins.variable} antialiased`}>
-        <CartProvider>
-          <Header />
-          <main className="min-h-screen">
-            {children}
-          </main>
-          <Footer />
-          <WhatsAppFloat />
-        </CartProvider>
+        <Script 
+          src="https://checkout.razorpay.com/v1/checkout.js" 
+          strategy="lazyOnload"
+        />
+        <ThemeProvider>
+          <AuthProvider>
+            <CartProvider>
+              <Header />
+              <main className="min-h-screen">
+                {children}
+              </main>
+              <Footer />
+              <WhatsAppFloat />
+            </CartProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

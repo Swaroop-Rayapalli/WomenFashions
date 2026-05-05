@@ -4,8 +4,11 @@ export interface Product {
     price: number;
     image: string;
     category?: string;
+    sizes?: string[]; // Available sizes
+    selectedSize?: string;
 }
 
 export interface CartItem extends Product {
     quantity: number;
+    size?: string; // Selected size in cart
 }

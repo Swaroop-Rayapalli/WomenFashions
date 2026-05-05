@@ -1,46 +1,82 @@
 'use client';
 
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useCart } from '../context/CartContext';
 
-export default function CollectionsPage() {
+function CollectionsContent() {
     const { addToCart } = useCart();
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    
+    const [products, setProducts] = useState<any[]>([]);
+    const [categories, setCategories] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+    
+    // Filter states
+    const search = searchParams.get('search') || '';
+    const categoryId = searchParams.get('category') || '';
+    const minPrice = searchParams.get('minPrice') || '';
+    const maxPrice = searchParams.get('maxPrice') || '';
+    const sort = searchParams.get('sort') || 'newest';
 
-    const collections = [
-        {
-            id: 'coll-1',
-            name: 'Bridal Collection',
-            description: 'Stunning bridal blouses and lehengas designed to make your special day unforgettable. Intricate Maggam work and heavy embroidery.',
-            image: '/images/bridal_blouse_1765197647134.png',
-            price: 5000,
-            link: '/gallery'
-        },
-        {
-            id: 'coll-2',
-            name: 'Kids Wear',
-            description: 'Adorable and comfortable ethnic wear for children. Pattu pavadas, frocks, and lehengas customized for little ones.',
-            image: '/images/kids_lehenga_1765197573435.png',
-            price: 2500,
-            link: '/gallery'
-        },
-        {
-            id: 'coll-3',
-            name: 'Designer Blouses',
-            description: 'Trendy cuts, back designs, and modern patterns. Perfect for parties and festive occasions.',
-            image: '/images/designer_blouses_collection_1765197297759.png',
-            price: 1500,
-            link: '/gallery'
-        },
-        {
-            id: 'coll-4',
-            name: 'Sarees & Fabrics',
-            description: 'Curated collection of Banaras, Silk, and Fancy sarees. We also have a wide range of fabrics for custom stitching.',
-            image: '/images/saree_collection_1765197553661.png',
-            price: 3500,
-            link: '/contact'
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
+                const data = await res.json();
+                if (data.success) setCategories(data.data);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+        fetchCategories();
+    }, []);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            setLoading(true);
+            try {
+                const params = new URLSearchParams();
+                if (search) params.append('search', search);
+                if (categoryId) params.append('category', categoryId);
+                if (minPrice) params.append('minPrice', minPrice);
+                if (maxPrice) params.append('maxPrice', maxPrice);
+                if (sort) params.append('sort', sort);
+
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products?${params.toString()}`);
+                const data = await res.json();
+                if (data.success) {
+                    setProducts(data.data);
+                }
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchProducts();
+    }, [search, categoryId, minPrice, maxPrice, sort]);
+
+    const handleFilterChange = (key: string, value: string) => {
+        const params = new URLSearchParams(searchParams.toString());
+        if (value) {
+            params.set(key, value);
+        } else {
+            params.delete(key);
         }
-    ];
+        router.push(`/collections?${params.toString()}`);
+    };
+
+    const clearFilters = () => {
+        router.push('/collections');
+    };
+
+    if (loading) {
+        return <div style={{ marginTop: '100px', textAlign: 'center' }}>Loading collections...</div>;
+    }
 
     return (
         <div style={{ marginTop: '70px' }}>
@@ -52,40 +88,140 @@ export default function CollectionsPage() {
                 </div>
             </section>
 
-            {/* Categories */}
+            {/* Main Content */}
             <section className="section bg-white">
                 <div className="container">
-                    <div className="section-header">
-                        <h2 className="section-title">Explore by Category</h2>
-                    </div>
+                    <div className="collections-container">
+                        {/* Sidebar Filters */}
+                        <aside className="filters-sidebar">
+                            <div className="filter-group">
+                                <h3 className="filter-title">Search Results</h3>
+                                {search && (
+                                    <p className="search-term">
+                                        Showing results for: <strong>"{search}"</strong>
+                                    </p>
+                                )}
+                                <button onClick={clearFilters} className="btn-link">Clear All Filters</button>
+                            </div>
 
-                    <div className="grid grid-2">
-                        {collections.map((item) => (
-                            <div key={item.id} className="card">
-                                <div style={{ position: 'relative', height: '300px' }}>
-                                    <Image
-                                        src={item.image}
-                                        alt={item.name}
-                                        fill
-                                        style={{ objectFit: 'cover' }}
-                                    />
-                                </div>
-                                <div className="card-body">
-                                    <h3 className="card-title">{item.name}</h3>
-                                    <p className="card-text">{item.description}</p>
-                                    <p style={{ fontWeight: 700, fontSize: '1.4rem', color: 'var(--color-maroon)', marginBottom: 'var(--space-4)' }}>₹{item.price}</p>
-                                    <div className="flex gap-2">
-                                        <button
-                                            onClick={() => addToCart({ id: item.id, name: item.name, price: item.price, image: item.image })}
-                                            className="btn btn-primary flex-1"
-                                        >
-                                            Add to Cart
-                                        </button>
-                                        <Link href={item.link} className="btn btn-outline flex-1 text-center">Details</Link>
-                                    </div>
+                            <div className="filter-group">
+                                <h4 className="filter-subtitle">Categories</h4>
+                                <div className="filter-options">
+                                    <label className="filter-option">
+                                        <input 
+                                            type="radio" 
+                                            name="category" 
+                                            checked={!categoryId} 
+                                            onChange={() => handleFilterChange('category', '')} 
+                                        />
+                                        <span>All Categories</span>
+                                    </label>
+                                    {categories.map(cat => (
+                                        <label key={cat.id} className="filter-option">
+                                            <input 
+                                                type="radio" 
+                                                name="category" 
+                                                checked={categoryId === cat.id.toString()} 
+                                                onChange={() => handleFilterChange('category', cat.id.toString())} 
+                                            />
+                                            <span>{cat.name}</span>
+                                        </label>
+                                    ))}
                                 </div>
                             </div>
-                        ))}
+
+                            <div className="filter-group">
+                                <h4 className="filter-subtitle">Price Range</h4>
+                                <div className="price-inputs">
+                                    <input 
+                                        type="number" 
+                                        placeholder="Min" 
+                                        value={minPrice} 
+                                        onChange={(e) => handleFilterChange('minPrice', e.target.value)}
+                                        className="price-input"
+                                    />
+                                    <span>-</span>
+                                    <input 
+                                        type="number" 
+                                        placeholder="Max" 
+                                        value={maxPrice} 
+                                        onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
+                                        className="price-input"
+                                    />
+                                </div>
+                            </div>
+                        </aside>
+
+                        {/* Product List */}
+                        <div className="products-column">
+                            <div className="products-header">
+                                <p className="product-count">{products.length} products found</p>
+                                <div className="sort-container">
+                                    <label>Sort By:</label>
+                                    <select 
+                                        value={sort} 
+                                        onChange={(e) => handleFilterChange('sort', e.target.value)}
+                                        className="sort-select"
+                                    >
+                                        <option value="newest">Newest Arrivals</option>
+                                        <option value="price-asc">Price: Low to High</option>
+                                        <option value="price-desc">Price: High to Low</option>
+                                        <option value="oldest">Oldest First</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            {loading ? (
+                                <div className="loading-spinner">Loading products...</div>
+                            ) : products.length > 0 ? (
+                                <div className="grid grid-2">
+                                    {products.map((item) => (
+                                        <div key={item.id} className="card product-card group" style={{ transition: 'all 0.3s ease', position: 'relative' }}>
+                                            <Link href={`/collections/${item.slug}`} style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
+                                                <div style={{ position: 'relative', height: '350px', overflow: 'hidden' }}>
+                                                    <Image
+                                                        src={item.images?.[0]?.imageUrl || '/images/placeholder.png'}
+                                                        alt={item.name}
+                                                        fill
+                                                        style={{ objectFit: 'cover', transition: 'transform 0.5s ease' }}
+                                                        className="group-hover:scale-105"
+                                                    />
+                                                    {item.isFeatured && <span className="badge featured">Featured</span>}
+                                                </div>
+                                                <div className="card-body">
+                                                    <h3 className="card-title">{item.name}</h3>
+                                                    <p className="card-text line-clamp-2">{item.description}</p>
+                                                    <p className="product-price">₹{item.price}</p>
+                                                </div>
+                                            </Link>
+                                            <div className="px-6 pb-6 mt-auto">
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        addToCart({ 
+                                                            id: item.id.toString(), 
+                                                            name: item.name, 
+                                                            price: item.price, 
+                                                            image: item.images?.[0]?.imageUrl || '/images/placeholder.png' 
+                                                        }, 'Standard');
+                                                        alert('Added to cart!');
+                                                    }}
+                                                    className="btn btn-primary w-full"
+                                                >
+                                                    Add to Cart
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="no-products">
+                                    <h3>No products found</h3>
+                                    <p>Try adjusting your search or filters to find what you're looking for.</p>
+                                    <button onClick={clearFilters} className="btn btn-primary">Clear All Filters</button>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </section>
@@ -121,5 +257,13 @@ export default function CollectionsPage() {
                 </div>
             </section>
         </div>
+    );
+}
+
+export default function CollectionsPage() {
+    return (
+        <Suspense fallback={<div>Loading collections...</div>}>
+            <CollectionsContent />
+        </Suspense>
     );
 }

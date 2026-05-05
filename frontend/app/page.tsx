@@ -1,4 +1,7 @@
 import Link from 'next/link';
+import Testimonials from './components/Testimonials';
+import FeedbackForm from './components/FeedbackForm';
+import FeaturedProducts from './components/FeaturedProducts';
 
 export default function Home() {
   return (
@@ -9,14 +12,26 @@ export default function Home() {
           <h1 className="hero-title">Perfect Fit. Elegant Designs.</h1>
           <p className="hero-subtitle">Crafted for Every Occasion Since 2011</p>
           <div className="hero-buttons">
-            <button className="btn btn-primary btn-lg">📅 Book Appointment</button>
+            <a 
+              href="https://wa.me/919030600126?text=Hello! I would like to book an appointment for stitching services at Women Fashion." 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn btn-primary btn-lg"
+            >
+              📅 Book Appointment
+            </a>
             <Link href="/collections" className="btn btn-gold btn-lg">
               ✨ View Collections
             </Link>
-            <button className="btn btn-outline btn-lg">📞 Call Now</button>
+            <a href="tel:+919030600126" className="btn btn-outline btn-lg">
+              📞 Call Now
+            </a>
           </div>
         </div>
       </section>
+
+      {/* Featured Products Section */}
+      <FeaturedProducts />
 
       {/* Services Highlights */}
       <section className="section bg-white">
@@ -188,65 +203,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Customer Reviews */}
-      <section className="section bg-white">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">What Our Customers Say</h2>
-            <p className="section-subtitle">⭐ 4.5 Rating from 87+ Happy Customers</p>
-          </div>
+      {/* Dynamic Testimonials Section */}
+      <Testimonials limit={3} />
 
-          <div className="grid grid-3">
-            <div className="card testimonial-card">
-              <div className="card-body">
-                <div style={{ color: 'var(--color-gold)', fontSize: '1.5rem', marginBottom: 'var(--space-3)' }}>
-                  ⭐⭐⭐⭐⭐
-                </div>
-                <p className="card-text">
-                  "Great prices, good quality. The perfect fitting and attention to detail is amazing!"
-                </p>
-                <h4 style={{ color: 'var(--color-peacock)', fontSize: 'var(--text-base)', marginTop: 'var(--space-4)' }}>
-                  — Deon
-                </h4>
-              </div>
-            </div>
-
-            <div className="card testimonial-card">
-              <div className="card-body">
-                <div style={{ color: 'var(--color-gold)', fontSize: '1.5rem', marginBottom: 'var(--space-3)' }}>
-                  ⭐⭐⭐⭐⭐
-                </div>
-                <p className="card-text">
-                  "Perfect fitting & neat finishing! This is my go-to boutique for all occasions."
-                </p>
-                <h4 style={{ color: 'var(--color-peacock)', fontSize: 'var(--text-base)', marginTop: 'var(--space-4)' }}>
-                  — Sahithi
-                </h4>
-              </div>
-            </div>
-
-            <div className="card testimonial-card">
-              <div className="card-body">
-                <div style={{ color: 'var(--color-gold)', fontSize: '1.5rem', marginBottom: 'var(--space-3)' }}>
-                  ⭐⭐⭐⭐⭐
-                </div>
-                <p className="card-text">
-                  "Attention to detail is exceptional. Women Fashion never disappoints!"
-                </p>
-                <h4 style={{ color: 'var(--color-peacock)', fontSize: 'var(--text-base)', marginTop: 'var(--space-4)' }}>
-                  — Kiranmai
-                </h4>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center mt-8">
-            <Link href="/testimonials" className="btn btn-primary">
-              Read More Reviews
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Feedback Form Section */}
+      <FeedbackForm />
 
       {/* Special Offer CTA */}
       <section
@@ -275,11 +236,20 @@ export default function Home() {
           <h2 className="section-title">Ready to Get Started?</h2>
           <p className="section-subtitle">Visit us today or book an appointment for personalized service</p>
           <div className="flex-center gap-4" style={{ marginTop: 'var(--space-8)', flexWrap: 'wrap' }}>
-            <button className="btn btn-primary btn-lg">📅 Book Appointment</button>
+            <a 
+              href="https://wa.me/919030600126?text=Hello! I would like to book an appointment for stitching services at Women Fashion." 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn btn-primary btn-lg"
+            >
+              📅 Book Appointment
+            </a>
             <Link href="/contact" className="btn btn-gold btn-lg">
               📍 Visit Our Store
             </Link>
-            <button className="btn btn-outline btn-lg">📞 9030600126</button>
+            <a href="tel:+919030600126" className="btn btn-outline btn-lg">
+              📞 9030600126
+            </a>
           </div>
         </div>
       </section>

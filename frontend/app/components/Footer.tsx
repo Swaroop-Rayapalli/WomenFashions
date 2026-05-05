@@ -1,6 +1,16 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Footer() {
+    const pathname = usePathname();
+
+    // Hide footer on admin pages
+    if (pathname?.startsWith('/admin')) {
+        return null;
+    }
+
     return (
         <footer className="footer">
             <div className="container">
@@ -18,9 +28,8 @@ export default function Footer() {
                         <h3>Quick Links</h3>
                         <Link href="/about">About Us</Link>
                         <Link href="/collections">Collections</Link>
-                        <Link href="/services">Services</Link>
-                        <Link href="/gallery">Gallery</Link>
-                        <Link href="/offers">Special Offers</Link>
+                        <Link href="/contact">Contact Us</Link>
+                        <Link href="/testimonials">Testimonials</Link>
                     </div>
 
                     {/* Services */}
