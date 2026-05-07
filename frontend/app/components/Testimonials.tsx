@@ -22,7 +22,6 @@ interface TestimonialsProps {
 export default function Testimonials({ limit, showTitle = true }: TestimonialsProps) {
     const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     const fetchFeedbacks = async () => {
         try {
@@ -149,18 +148,16 @@ export default function Testimonials({ limit, showTitle = true }: TestimonialsPr
                                     if (imageList.length === 0) return null;
 
                                     return (
-                                        <div style={{ marginTop: 'var(--space-4)', display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2)' }}>
+                                        <div style={{ marginTop: 'var(--space-4)', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
                                             {imageList.map((img: string, idx: number) => (
                                                 <div 
                                                     key={idx} 
-                                                    onClick={() => setSelectedImage(img)}
                                                     style={{ 
                                                         position: 'relative', 
-                                                        width: imageList.length === 1 ? '100%' : 'calc(50% - 4px)', 
-                                                        height: imageList.length === 1 ? '200px' : '120px', 
+                                                        width: '100%', 
+                                                        height: '300px', 
                                                         borderRadius: 'var(--radius-md)', 
                                                         overflow: 'hidden',
-                                                        cursor: 'pointer',
                                                         border: '1px solid var(--color-gray-300)'
                                                     }}
                                                 >
@@ -208,41 +205,6 @@ export default function Testimonials({ limit, showTitle = true }: TestimonialsPr
                     </div>
                 )}
             </div>
-
-            {/* Lightbox / Wide View */}
-            {selectedImage && (
-                <div 
-                    style={{ 
-                        position: 'fixed', 
-                        top: 0, 
-                        left: 0, 
-                        width: '100vw', 
-                        height: '100vh', 
-                        backgroundColor: 'rgba(0,0,0,0.9)', 
-                        zIndex: 2000, 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center',
-                        padding: '40px'
-                    }}
-                    onClick={() => setSelectedImage(null)}
-                >
-                    <button 
-                        style={{ position: 'absolute', top: '20px', right: '20px', color: 'white', fontSize: '30px', background: 'none', border: 'none', cursor: 'pointer' }}
-                        onClick={() => setSelectedImage(null)}
-                    >
-                        ✕
-                    </button>
-                    <div style={{ position: 'relative', width: '100%', height: '100%', maxWidth: '1000px' }}>
-                        <Image
-                            src={selectedImage}
-                            alt="Wide view"
-                            fill
-                            style={{ objectFit: 'contain' }}
-                        />
-                    </div>
-                </div>
-            )}
         </section>
     );
 }

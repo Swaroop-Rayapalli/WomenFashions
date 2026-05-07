@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Op } = require('sequelize');
 
 module.exports = (sequelize) => {
     const FeedbackInteraction = sequelize.define('FeedbackInteraction', {
@@ -41,7 +41,7 @@ module.exports = (sequelize) => {
                 fields: ['feedback_id', 'user_id'],
                 where: {
                     user_id: {
-                        [require('sequelize').Op.ne]: null
+                        [Op.ne]: null
                     }
                 },
                 name: 'unique_feedback_user'

@@ -4,8 +4,10 @@ const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const { testConnection } = require('./config/database');
-const { syncDatabase } = require('./models');
+const database = require('./config/database');
+const testConnection = database.testConnection;
+const models = require('./models');
+const syncDatabase = models.syncDatabase;
 const errorHandler = require('./middleware/errorHandler');
 
 // Initialize express app
@@ -138,11 +140,17 @@ const startServer = async () => {
     try {
         // Test database connection (non-fatal — contact route doesn't need DB)
         const isConnected = await testConnection();
-        if (!isConnected && process.env.NODE_ENV === 'production') {
-            console.error('⚠️ Database connection failed. Continuing in degraded mode...');
-        } else {
+        
+        if (isConnected) {
             // Sync database (create tables) only if connected
             await syncDatabase(false);
+        } else {
+            if (process.env.NODE_ENV === 'production') {
+                console.error('⚠️ Database connection failed. Continuing in degraded mode...');
+            } else {
+                console.error('❌ Database connection failed. Server will not start in development mode.');
+                process.exit(1);
+            }
         }
 
         // Start listening regardless of DB status
@@ -179,3 +187,4 @@ process.on('unhandledRejection', (err) => {
 });
 // Export for Vercel
 module.exports = app;
+

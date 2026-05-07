@@ -4,12 +4,7 @@ require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 
 const dbUrl = process.env.DATABASE_URL;
 
-if (!dbUrl) {
-    console.error('❌ ERROR: DATABASE_URL is not defined in backend/.env');
-    // Don't exit here, let testConnection handle it so server.js can start (per original design)
-}
-
-const sequelize = new Sequelize(dbUrl || 'postgresql://localhost:5432/db', {
+const sequelize = new Sequelize(dbUrl || 'postgres://localhost:5432/dummy', {
     dialect: 'postgres',
     protocol: 'postgres',
     dialectOptions: {
@@ -25,13 +20,9 @@ const sequelize = new Sequelize(dbUrl || 'postgresql://localhost:5432/db', {
         createdAt: 'created_at',
         updatedAt: 'updated_at'
     }
-}) : null;
+});
 
 const testConnection = async () => {
-    if (!sequelize) {
-        console.error('❌ Unable to connect: DATABASE_URL is missing');
-        return false;
-    }
     try {
         await sequelize.authenticate();
         console.log('✅ PostgreSQL database connection established successfully');

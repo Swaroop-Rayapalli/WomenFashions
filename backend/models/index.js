@@ -40,11 +40,33 @@ Object.keys(models).forEach(modelName => {
 // Sync database (create tables if they don't exist)
 const syncDatabase = async (force = false) => {
     try {
-        await sequelize.sync({ force, alter: true });
+        // Use alter: true only if force is false, to try and keep data
+        // But be aware it can fail with constraint errors in Postgres
+        const syncOptions = { force };
+        
+        // Only use alter in development and when not forcing
+        if (!force && process.env.NODE_ENV !== 'production') {
+            syncOptions.alter = true;
+        }
+
+        await sequelize.sync(syncOptions);
         console.log(`✅ Database ${force ? 'reset and ' : ''}synchronized successfully`);
     } catch (error) {
         console.error('❌ Error synchronizing database:', error.message);
-        throw error;
+        
+        // If alter failed, try a plain sync as a fallback (will only create missing tables)
+        if (error.name === 'SequelizeUnknownConstraintError' || error.name === 'SequelizeDatabaseError') {
+            console.log('⚠️ Alter failed, attempting plain sync fallback...');
+            try {
+                await sequelize.sync({ force: false, alter: false });
+                console.log('✅ Plain sync successful (no schema changes applied)');
+            } catch (fallbackError) {
+                console.error('❌ Fallback sync also failed:', fallbackError.message);
+                throw fallbackError;
+            }
+        } else {
+            throw error;
+        }
     }
 };
 

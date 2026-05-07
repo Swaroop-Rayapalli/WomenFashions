@@ -42,7 +42,11 @@ export default function AdminLoginPage() {
         setIsLoading(true);
 
         try {
-            const base = process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace(/\/api\/?$/, '') : (typeof window !== 'undefined' ? '' : 'http://localhost:5000');
+            const base = process.env.NEXT_PUBLIC_API_URL 
+                ? process.env.NEXT_PUBLIC_API_URL.replace(/\/api\/?$/, '') 
+                : (typeof window !== 'undefined' 
+                    ? (window.location.hostname === 'localhost' ? 'http://localhost:5000' : '') 
+                    : 'http://localhost:5000');
             const res = await fetch(`${base}/api/auth/forgot-password`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -71,7 +75,11 @@ export default function AdminLoginPage() {
         setIsLoading(true);
 
         try {
-            const base = process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace(/\/api\/?$/, '') : (typeof window !== 'undefined' ? '' : 'http://localhost:5000');
+            const base = process.env.NEXT_PUBLIC_API_URL 
+                ? process.env.NEXT_PUBLIC_API_URL.replace(/\/api\/?$/, '') 
+                : (typeof window !== 'undefined' 
+                    ? (window.location.hostname === 'localhost' ? 'http://localhost:5000' : '') 
+                    : 'http://localhost:5000');
             const res = await fetch(`${base}/api/auth/reset-password`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

@@ -65,7 +65,7 @@ export default function AdminFeedback() {
             <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
                 <div className="mb-12">
                     <h1 style={{ fontSize: '32px', fontWeight: 700, color: '#111827' }}>Customer Feedback</h1>
-                    <p style={{ color: '#6b7280', marginTop: '4px' }}>Your feedback is submitted successfully!</p>
+                    <p style={{ color: '#6b7280', marginTop: '4px' }}>Manage and review all customer reviews and feedback</p>
                 </div>
                 {status.text && (
                     <div style={{ 
@@ -130,7 +130,7 @@ export default function AdminFeedback() {
                                     return (
                                         <div style={{ display: 'flex', gap: '12px', marginTop: '20px', flexWrap: 'wrap' }}>
                                             {imageList.map((img: string, idx: number) => (
-                                                <div key={idx} style={{ width: '100px', height: '100px', borderRadius: '8px', overflow: 'hidden', border: '1px solid #f3f4f6' }}>
+                                                <div key={idx} style={{ width: '180px', height: '180px', borderRadius: '8px', overflow: 'hidden', border: '1px solid #f3f4f6' }}>
                                                     <img src={img} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                                 </div>
                                             ))}
